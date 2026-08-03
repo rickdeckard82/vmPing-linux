@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
     <AssemblyName>vmping</AssemblyName>
     <RootNamespace>vmPing</RootNamespace>
+    <!-- A janela de Ajuda lê a versão do assembly. Sem esta declaração o .NET
+         assume 1.0.0, e a Ajuda mostraria 1.0.0 mesmo num pacote 1.0.1.
+         Manter em sincronia com a versão passada ao build-deb.sh. -->
+    <Version>1.0.1</Version>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
     <SelfContained>true</SelfContained>

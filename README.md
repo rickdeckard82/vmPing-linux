@@ -34,7 +34,7 @@ As decisões técnicas do port — e os motivos por trás de cada uma — estão
 Baixe o `.deb` em [Releases](https://github.com/rickdeckard82/vmPing-linux/releases) e instale:
 
 ```bash
-sudo apt install ./vmping_1.0.0_amd64.deb
+sudo apt install ./vmping_1.0.1_amd64.deb
 ```
 
 Use `apt install` (e não `dpkg -i`) para que as dependências sejam resolvidas automaticamente. A instalação já aplica a capability `CAP_NET_RAW` ao binário, então o ping ICMP funciona sem `sudo`.
@@ -85,8 +85,8 @@ docs/
 
 ```bash
 cd packaging
-./build-deb.sh 1.0.0
-sudo apt install ./vmping_1.0.0_amd64.deb
+./build-deb.sh 1.0.1
+sudo apt install ./vmping_1.0.1_amd64.deb
 ```
 
 O script publica um build self-contained (não exige o runtime .NET instalado), monta a árvore do pacote com ícones e entrada de menu, e verifica se todos os artefatos do publish entraram no pacote. O `.deb` gerado passa `lintian` sem avisos.

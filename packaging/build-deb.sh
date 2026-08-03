@@ -6,7 +6,7 @@
 set -euo pipefail
 
 APP_NAME="vmping"
-VERSION="${1:-1.0.0}"
+VERSION="${1:-1.0.1}"
 ARCH="amd64"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
