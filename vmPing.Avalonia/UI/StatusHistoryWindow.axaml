@@ -1,0 +1,83 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        xmlns:classes="clr-namespace:vmPing.Classes"
+        x:Class="vmPing.UI.StatusHistoryWindow"
+        Title="{x:Static p:Strings.Menu_StatusHistory}"
+        Width="720" Height="400"
+        MinWidth="620" MinHeight="250"
+        Background="#313132"
+        KeyDown="Window_KeyDown"
+        Closed="Window_Closed">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/StatusHistoryWindow.xaml
+        original (349+380 linhas). Simplificações deliberadas:
+          - Chrome de janela customizado (WindowChrome, botões min/max/close
+            desenhados à mão, DragMove, hook WM_GETMINMAXINFO via P/Invoke)
+            removido -> usa a decoração nativa do Avalonia/Linux, que já dá
+            minimizar/maximizar/fechar de graça sem nada disso.
+          - DataGrid (WPF) -> ListBox com DataTemplate (mesma decisão já usada
+            em ManageAliasesWindow: Avalonia.Controls.DataGrid é pacote à
+            parte, não adicionado sem necessidade).
+          - Exportar: usava System.Windows.Forms.SaveFileDialog (Windows-only).
+            Troquei por escrita direta num arquivo fixo em vez de arriscar a
+            API do file picker do Avalonia (IStorageProvider) sem conseguir
+            verificar a forma exata de FilePickerSaveOptions contra o
+            código-fonte nesta sessão (rate limit da API do GitHub) — ver
+            MIGRATION_PLAN.md.
+          - Posição/tamanho persistidos entre sessões: mantido (é código
+            gerenciado puro no original, sem P/Invoke), removida só a parte
+            de Win32.
+    -->
+    <Window.Resources>
+        <classes:StatusChangeLogToBrushConverter x:Key="StatusChangeLogToBrushConverter" />
+    </Window.Resources>
+
+    <Grid Margin="6" RowDefinitions="*,Auto">
+
+        <Grid Grid.Row="0">
+            <ListBox Name="StatusHistory" Background="#202020" Foreground="#fdf6e3" FontFamily="monospace">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="classes:StatusChangeLog">
+                        <Grid ColumnDefinitions="150,140,100,*">
+                            <TextBlock Grid.Column="0" Text="{Binding Timestamp}" Foreground="#989899" Padding="5,2" />
+                            <TextBlock Grid.Column="1" Text="{Binding Hostname}" Foreground="#b6fab4" Padding="5,2" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Grid.Column="2" Text="{Binding Alias}" Foreground="#f4f4f4" Padding="5,2" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Grid.Column="3" Text="{Binding StatusAsString}"
+                                       Foreground="{Binding Status, Converter={StaticResource StatusChangeLogToBrushConverter}}" Padding="5,2" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Name="NoHistoryOverlay" Background="#0e0e0e" IsVisible="False"
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="#ffd43b" FontSize="28" HorizontalAlignment="Center" Text="{x:Static p:Strings.StatusHistory_NoChanges}" />
+                <TextBlock Foreground="#e8e8e8" TextWrapping="Wrap" Margin="0,10,0,0" MaxWidth="300" HorizontalAlignment="Center"
+                           Text="{x:Static p:Strings.StatusHistory_NoChangesDescription}" />
+            </StackPanel>
+        </Grid>
+
+        <DockPanel Grid.Row="1" Margin="6,8,6,2">
+            <StackPanel DockPanel.Dock="Left">
+                <TextBlock Text="{x:Static p:Strings.StatusHistory_Filter}" Foreground="#ecce51" Margin="0,0,0,2" />
+                <TextBox Name="FilterField" Width="260" KeyUp="TextBox_KeyUp" />
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Left" Margin="15,0,0,0">
+                <TextBlock Text="{x:Static p:Strings.StatusHistory_Include}" Foreground="#ecce51" Margin="0,0,0,2" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="FilterUp" Content="{x:Static p:Strings.Options_ColorUp}" IsChecked="True" Click="Filter_Click" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <CheckBox Name="FilterStart" Content="{x:Static p:Strings.StatusHistory_Start}" IsChecked="True" Click="Filter_Click" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <CheckBox Name="FilterDown" Content="{x:Static p:Strings.Options_ColorDown}" IsChecked="True" Click="Filter_Click" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <CheckBox Name="FilterStop" Content="{x:Static p:Strings.StatusHistory_Stop}" IsChecked="True" Click="Filter_Click" Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Content="{x:Static p:Strings.StatusHistory_Export}" Click="Export_Click" MinWidth="100" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

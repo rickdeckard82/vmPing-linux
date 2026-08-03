@@ -1,0 +1,1034 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button_Ping" xml:space="preserve">
+    <value>Ping</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="DialogButton_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DialogButton_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DialogButton_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="DialogButton_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DialogButton_Overwrite" xml:space="preserve">
+    <value>Overwrite</value>
+  </data>
+  <data name="DialogButton_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="DialogButton_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="DialogTitle_ConfirmDelete" xml:space="preserve">
+    <value>Confirm Delete</value>
+  </data>
+  <data name="DialogTitle_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DialogTitle_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Email_Down" xml:space="preserve">
+    <value>down</value>
+  </data>
+  <data name="Email_Error" xml:space="preserve">
+    <value>error</value>
+  </data>
+  <data name="Email_Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="Email_Up" xml:space="preserve">
+    <value>up</value>
+  </data>
+  <data name="Email_Verb" xml:space="preserve">
+    <value>is</value>
+    <comment>Example:   Host 127.0.0.1 "is" down</comment>
+  </data>
+  <data name="Error_AddAlias" xml:space="preserve">
+    <value>Failed to add alias.</value>
+  </data>
+  <data name="Error_CreateConfig" xml:space="preserve">
+    <value>Failed to create vmPing configuration file.</value>
+  </data>
+  <data name="Error_CreateDirectory" xml:space="preserve">
+    <value>Failed to create directory for vmPing configuration file.</value>
+  </data>
+  <data name="Error_DeleteAlias" xml:space="preserve">
+    <value>Failed to delete alias.</value>
+  </data>
+  <data name="Error_FailedToLaunch" xml:space="preserve">
+    <value>Failed to launch a new instance of vmPing.</value>
+  </data>
+  <data name="Error_LoadAlias" xml:space="preserve">
+    <value>Failed to load aliases.</value>
+  </data>
+  <data name="Error_LoadConfig" xml:space="preserve">
+    <value>Failed to load configuration file.</value>
+  </data>
+  <data name="Error_ReadConfig" xml:space="preserve">
+    <value>Failed to read configuration file.</value>
+  </data>
+  <data name="Error_UpgradeConfig" xml:space="preserve">
+    <value>Failed to upgrade configuration file.</value>
+  </data>
+  <data name="Error_WindowTitle" xml:space="preserve">
+    <value>vmPing - Error</value>
+  </data>
+  <data name="Error_WriteConfig" xml:space="preserve">
+    <value>Failed to write to configuration file.</value>
+  </data>
+  <data name="ManageAliases_Alias" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="ManageAliases_Header" xml:space="preserve">
+    <value>Manage your aliases</value>
+  </data>
+  <data name="ManageAliases_Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="ManageAliases_Warn_DeleteA" xml:space="preserve">
+    <value>Are you sure you want to remove</value>
+    <comment>Parsed as:  [DeleteA] {AliasName} [DeleteB]</comment>
+  </data>
+  <data name="ManageAliases_Warn_DeleteB" xml:space="preserve">
+    <value>from your aliases?</value>
+    <comment>/// See ManageFavorites_Warn_DeleteA for usage when translating</comment>
+  </data>
+  <data name="ManageAliases_WindowTitle" xml:space="preserve">
+    <value>Aliases</value>
+  </data>
+  <data name="ManageFavorites_Header" xml:space="preserve">
+    <value>Manage your favorites</value>
+  </data>
+  <data name="ManageFavorites_Warn_DeleteA" xml:space="preserve">
+    <value>Are you sure you want to remove</value>
+    <comment>Parsed as:  [DeleteA] {FavoriteTitle} [DeleteB]  /// Translating: If this format does not make sense for your locale, make DeleteA an empty string and put your translated message in DeleteB</comment>
+  </data>
+  <data name="ManageFavorites_Warn_DeleteB" xml:space="preserve">
+    <value>from your favorites?</value>
+  </data>
+  <data name="ManageFavorites_WindowTitle" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="Menu_Aliases" xml:space="preserve">
+    <value>Aliases</value>
+  </data>
+  <data name="Menu_FavoriteSets" xml:space="preserve">
+    <value>Favorite Sets</value>
+  </data>
+  <data name="Menu_FloodHost" xml:space="preserve">
+    <value>Flood Host</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Menu_ManageAliases" xml:space="preserve">
+    <value>Manage Aliases</value>
+  </data>
+  <data name="Menu_ManageFavorites" xml:space="preserve">
+    <value>Manage Favorites</value>
+  </data>
+  <data name="Menu_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Menu_PopupAlerts" xml:space="preserve">
+    <value>Popup Alerts</value>
+  </data>
+  <data name="Menu_SaveToFavorites" xml:space="preserve">
+    <value>Create New Favorite Set</value>
+  </data>
+  <data name="Menu_StatusHistory" xml:space="preserve">
+    <value>Status History</value>
+  </data>
+  <data name="Menu_Traceroute" xml:space="preserve">
+    <value>Traceroute</value>
+  </data>
+  <data name="Milliseconds_Symbol" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="NewAlias_Alias" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="NewAlias_Error_InvalidAlias" xml:space="preserve">
+    <value>Please enter a valid alias.</value>
+  </data>
+  <data name="NewAlias_Error_InvalidHost" xml:space="preserve">
+    <value>Please enter a valid host name.</value>
+  </data>
+  <data name="NewAlias_Header" xml:space="preserve">
+    <value>Create a new alias</value>
+  </data>
+  <data name="NewAlias_Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="NewFavorite_Error_InvalidName" xml:space="preserve">
+    <value>Please enter a valid name for this favorite set.</value>
+  </data>
+  <data name="NewFavorite_Header" xml:space="preserve">
+    <value>Create a new favorite set</value>
+  </data>
+  <data name="NewFavorite_SelectedHostsHeader" xml:space="preserve">
+    <value>Selected Hosts</value>
+  </data>
+  <data name="NewFavorite_Title" xml:space="preserve">
+    <value>Enter a title</value>
+  </data>
+  <data name="NewFavorite_Warn_AlreadyExists" xml:space="preserve">
+    <value>already exists.  Would you like to overwrite?</value>
+    <comment>Parsed as:  {Title} already exists.  Would you like to overwrite?</comment>
+  </data>
+  <data name="Notification_Always" xml:space="preserve">
+    <value>Always</value>
+  </data>
+  <data name="Notification_Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="Notification_WhenMinimized" xml:space="preserve">
+    <value>When Minimized</value>
+  </data>
+  <data name="Probe_Error" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="Probe_HostUnreachable" xml:space="preserve">
+    <value>Reply  [Host unreachable]</value>
+  </data>
+  <data name="Probe_InvalidPort" xml:space="preserve">
+    <value>Invalid port number.</value>
+  </data>
+  <data name="Probe_NetUnreachable" xml:space="preserve">
+    <value>Reply  [Network unreachable]</value>
+  </data>
+  <data name="Probe_Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Probe_PortClosed" xml:space="preserve">
+    <value>CLOSED</value>
+  </data>
+  <data name="Probe_PortOpen" xml:space="preserve">
+    <value>OPEN</value>
+  </data>
+  <data name="Probe_Reply" xml:space="preserve">
+    <value>Reply from</value>
+  </data>
+  <data name="Probe_StartPing" xml:space="preserve">
+    <value>Pinging</value>
+  </data>
+  <data name="Probe_Stat_Lost" xml:space="preserve">
+    <value>Lost:</value>
+  </data>
+  <data name="Probe_Stat_Received" xml:space="preserve">
+    <value>Received:</value>
+  </data>
+  <data name="Probe_Stat_Sent" xml:space="preserve">
+    <value>Sent:</value>
+  </data>
+  <data name="Probe_Timeout" xml:space="preserve">
+    <value>Request timed out.</value>
+  </data>
+  <data name="Probe_UnableToResolve" xml:space="preserve">
+    <value>Unable to resolve hostname.</value>
+  </data>
+  <data name="Probe_Unreachable" xml:space="preserve">
+    <value>Reply  [Unreachable]</value>
+  </data>
+  <data name="StatusChange_Down" xml:space="preserve">
+    <value>down</value>
+  </data>
+  <data name="StatusChange_Error" xml:space="preserve">
+    <value>[error]</value>
+  </data>
+  <data name="StatusChange_LatencyHigh" xml:space="preserve">
+    <value>high latency</value>
+  </data>
+  <data name="StatusChange_LatencyNormal" xml:space="preserve">
+    <value>normal latency</value>
+  </data>
+  <data name="StatusChange_Start" xml:space="preserve">
+    <value>started</value>
+  </data>
+  <data name="StatusChange_Stop" xml:space="preserve">
+    <value>stopped</value>
+  </data>
+  <data name="StatusChange_Up" xml:space="preserve">
+    <value>up</value>
+  </data>
+  <data name="StatusHistory_NoChanges" xml:space="preserve">
+    <value>No status history</value>
+  </data>
+  <data name="StatusHistory_NoChangesDescription" xml:space="preserve">
+    <value>When a host changes between down or up, it'll show up here</value>
+  </data>
+  <data name="StatusHistory_WindowTitle" xml:space="preserve">
+    <value>Status History</value>
+  </data>
+  <data name="Toolbar_Add" xml:space="preserve">
+    <value>Add Host</value>
+  </data>
+  <data name="Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Toolbar_StartAll" xml:space="preserve">
+    <value>Start All (F5)</value>
+  </data>
+  <data name="Toolbar_StopAll" xml:space="preserve">
+    <value>Stop All (F5)</value>
+  </data>
+  <data name="Tooltip_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Tooltip_EditAlias" xml:space="preserve">
+    <value>Edit alias</value>
+  </data>
+  <data name="Tooltip_IsolatedView" xml:space="preserve">
+    <value>Open isolated view</value>
+  </data>
+  <data name="MainWindow_Watermark" xml:space="preserve">
+    <value>Enter a hostname</value>
+  </data>
+  <data name="Menu_InputAddresses" xml:space="preserve">
+    <value>Input Addresses</value>
+  </data>
+  <data name="Menu_NewInstance" xml:space="preserve">
+    <value>New vmPing Instance</value>
+  </data>
+  <data name="Tray_Exit" xml:space="preserve">
+    <value>Exit vmPing</value>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="Options_LanguageAuto" xml:space="preserve">
+    <value>Auto (system language)</value>
+  </data>
+  <data name="Options_LanguageRestart" xml:space="preserve">
+    <value>Language changes take effect after restarting vmPing.</value>
+  </data>
+  <data name="Help_WindowTitle" xml:space="preserve">
+    <value>vmPing Help</value>
+  </data>
+  <data name="Help_Intro" xml:space="preserve">
+    <value>vmPing is a network utility that allows you to quickly monitor the availability of multiple hosts. Host monitors are easily added and removed, and dynamically resize with the application window. Color-coding allows you to tell at a glance the status of each host.</value>
+  </data>
+  <data name="Help_BasicUsage" xml:space="preserve">
+    <value>Basic Usage</value>
+  </data>
+  <data name="Help_MonitorHost_Title" xml:space="preserve">
+    <value>Monitor a host</value>
+  </data>
+  <data name="Help_MonitorHost_Body" xml:space="preserve">
+    <value>Enter a hostname or IP address into the textbox, then press Enter or click Ping. vmPing will continuously ping the host until you click Stop. Responses are displayed in the output area above the textbox. The output section will turn green when the host is responding and red when it is not responding. If an error occurs, the output area will turn orange.</value>
+  </data>
+  <data name="Help_AddMonitor_Title" xml:space="preserve">
+    <value>Add a host monitor</value>
+  </data>
+  <data name="Help_AddMonitor_Body" xml:space="preserve">
+    <value>Click 'Add Host' from the menu bar, or use the keyboard shortcut, Ctrl-A.</value>
+  </data>
+  <data name="Help_RemoveMonitor_Title" xml:space="preserve">
+    <value>Remove a host monitor</value>
+  </data>
+  <data name="Help_RemoveMonitor_Body" xml:space="preserve">
+    <value>When you hover your mouse over a host monitor, an X icon will appear in the top-right corner. Click the X icon to remove that instance.</value>
+  </data>
+  <data name="Help_Columns_Title" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Help_Columns_Body" xml:space="preserve">
+    <value>Click Columns in the menu bar then move the slider to the desired number of columns. This sets the number of host monitors to display in a single row. Additional rows will be created as needed.</value>
+  </data>
+  <data name="Help_ExtraFeatures" xml:space="preserve">
+    <value>Extra Features</value>
+  </data>
+  <data name="Help_PortMonitor_Title" xml:space="preserve">
+    <value>Port Monitor</value>
+  </data>
+  <data name="Help_PortMonitor_Body" xml:space="preserve">
+    <value>To monitor a specific TCP port, simply enter the hostname or IP address followed by a colon and the desired port number. vmPing will then continuously try to connect to the given port and display whether or not the connection is successful. Example - SERVER01:80, will monitor port 80 on SERVER01.</value>
+  </data>
+  <data name="Help_TraceRoute_Title" xml:space="preserve">
+    <value>Trace Route</value>
+  </data>
+  <data name="Help_TraceRoute_Body" xml:space="preserve">
+    <value>The trace route utility is used to measure network delays and determine the path taken to the given destination host. The utility can be accessed from the dropdown icon in the top right or by pressing Ctrl-T.</value>
+  </data>
+  <data name="Help_FloodHost_Title" xml:space="preserve">
+    <value>Flood Host</value>
+  </data>
+  <data name="Help_FloodHost_Body" xml:space="preserve">
+    <value>The flood host utility is used to generate a significant amount of ICMP packets. To limit the flow, the utility waits until a reply is received before sending the next ICMP packet. The utility can be accessed from the dropdown icon in the top right or by pressing Ctrl-F.</value>
+  </data>
+  <data name="Help_OptionsSection" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Help_PingInterval_Title" xml:space="preserve">
+    <value>Ping interval</value>
+  </data>
+  <data name="Help_PingInterval_Body" xml:space="preserve">
+    <value>The time to wait between sending each packet. The time can be specified in seconds, minutes, or hours.</value>
+  </data>
+  <data name="Help_PingTimeout_Title" xml:space="preserve">
+    <value>Ping timeout</value>
+  </data>
+  <data name="Help_PingTimeout_Body" xml:space="preserve">
+    <value>The maximum time to wait for a response, in seconds.</value>
+  </data>
+  <data name="Help_Email_Title" xml:space="preserve">
+    <value>Send email when host goes down or up</value>
+  </data>
+  <data name="Help_Email_Body" xml:space="preserve">
+    <value>Send an email each time a host changes status (from down to up or from up to down). A mail server, recipient email address, and from email address must all be specified.</value>
+  </data>
+  <data name="Help_AlwaysOnTop_Title" xml:space="preserve">
+    <value>Keep window always on top</value>
+  </data>
+  <data name="Help_AlwaysOnTop_Body" xml:space="preserve">
+    <value>The vmPing window will remain on top of all other application windows.</value>
+  </data>
+  <data name="Help_LogOutput_Title" xml:space="preserve">
+    <value>Log all output to files</value>
+  </data>
+  <data name="Help_LogOutput_Body" xml:space="preserve">
+    <value>Write all ping responses to a text file. The file will be named &lt;hostname&gt;.txt and will be saved to the specified directory. If the file already exists, new output will be appended to the existing file.</value>
+  </data>
+  <data name="Help_CommandLine" xml:space="preserve">
+    <value>Command Line Usage</value>
+  </data>
+  <data name="Help_CmdSyntax" xml:space="preserve">
+    <value>Usage: vmping [-i interval] [-w timeout] [&lt;target_host&gt;...]</value>
+  </data>
+  <data name="Help_CmdInterval" xml:space="preserve">
+    <value>Time, in seconds, to wait between sending each ping.</value>
+  </data>
+  <data name="Help_CmdTimeout" xml:space="preserve">
+    <value>Timeout, in seconds, to wait for each reply.</value>
+  </data>
+  <data name="Help_CmdTarget" xml:space="preserve">
+    <value>Ping the specified host. Multiple hostnames may be specified.</value>
+  </data>
+  <data name="Menu_Nslookup" xml:space="preserve">
+    <value>Nslookup</value>
+  </data>
+  <data name="Menu_Dig" xml:space="preserve">
+    <value>Dig</value>
+  </data>
+  <data name="DnsLookup_Watermark" xml:space="preserve">
+    <value>Enter a hostname or IP address</value>
+  </data>
+  <data name="DnsLookup_Run" xml:space="preserve">
+    <value>Lookup</value>
+  </data>
+  <data name="DnsLookup_Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="DnsLookup_Server" xml:space="preserve">
+    <value>Server:</value>
+  </data>
+  <data name="DnsLookup_TypeDefault" xml:space="preserve">
+    <value>(default)</value>
+  </data>
+  <data name="DnsLookup_WindowTitle" xml:space="preserve">
+    <value>DNS Lookup</value>
+  </data>
+  <data name="EditAlias_WindowTitle" xml:space="preserve">
+    <value>Edit Alias</value>
+  </data>
+  <data name="EditAlias_Prompt" xml:space="preserve">
+    <value>Enter an alias for:</value>
+  </data>
+  <data name="EditAlias_Watermark" xml:space="preserve">
+    <value>alias</value>
+  </data>
+  <data name="FloodHost_WindowTitle" xml:space="preserve">
+    <value>vmPing - Flood Host</value>
+  </data>
+  <data name="FloodHost_Sent" xml:space="preserve">
+    <value>Packets Sent:</value>
+  </data>
+  <data name="FloodHost_Received" xml:space="preserve">
+    <value>Packets Received:</value>
+  </data>
+  <data name="FloodHost_Lost" xml:space="preserve">
+    <value>Packets Lost:</value>
+  </data>
+  <data name="FloodHost_Info" xml:space="preserve">
+    <value>This tool will send a continuous stream of ICMP ping packets to the destination host. It typically will not generate any more than 32 kilobytes per second of network traffic.</value>
+  </data>
+  <data name="FloodHost_InProgress" xml:space="preserve">
+    <value>Flood in progress...</value>
+  </data>
+  <data name="MultiInput_Prompt" xml:space="preserve">
+    <value>Enter addresses to ping (one per line, or comma-separated)</value>
+  </data>
+  <data name="NewAlias_WindowTitle" xml:space="preserve">
+    <value>New Alias</value>
+  </data>
+  <data name="NewAlias_Header2" xml:space="preserve">
+    <value>New alias</value>
+  </data>
+  <data name="NewConfig_WindowTitle" xml:space="preserve">
+    <value>New Configuration</value>
+  </data>
+  <data name="NewConfig_Line1" xml:space="preserve">
+    <value>To save your settings, a new configuration file is needed.</value>
+  </data>
+  <data name="NewConfig_Line2" xml:space="preserve">
+    <value>The file will be stored here:</value>
+  </data>
+  <data name="NewConfig_Line3" xml:space="preserve">
+    <value>Select 'Portable mode' to save your configuration alongside the vmping executable.</value>
+  </data>
+  <data name="NewConfig_Portable" xml:space="preserve">
+    <value>Portable mode</value>
+  </data>
+  <data name="NewFavorite_WindowTitle" xml:space="preserve">
+    <value>Save Favorite</value>
+  </data>
+  <data name="NewFavorite_Header2" xml:space="preserve">
+    <value>Save current hosts as a favorite</value>
+  </data>
+  <data name="NewFavorite_TitleLabel" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="NewFavorite_HostsLabel" xml:space="preserve">
+    <value>Hosts (one per line, or comma-separated)</value>
+  </data>
+  <data name="Options_TabGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Options_ProbeOptions" xml:space="preserve">
+    <value>Probe Options</value>
+  </data>
+  <data name="Options_PingInterval" xml:space="preserve">
+    <value>Ping interval:</value>
+  </data>
+  <data name="Options_Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="Options_Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="Options_PingTimeout" xml:space="preserve">
+    <value>Ping timeout:</value>
+  </data>
+  <data name="Options_AlertThreshold" xml:space="preserve">
+    <value>Alert threshold:</value>
+  </data>
+  <data name="Options_DroppedPings" xml:space="preserve">
+    <value>dropped pings</value>
+  </data>
+  <data name="Options_Startup" xml:space="preserve">
+    <value>Startup</value>
+  </data>
+  <data name="Options_StartupPrompt" xml:space="preserve">
+    <value>Choose how vmPing should start:</value>
+  </data>
+  <data name="Options_StartBlank" xml:space="preserve">
+    <value>Blank (default)</value>
+  </data>
+  <data name="Options_StartList" xml:space="preserve">
+    <value>List input window</value>
+  </data>
+  <data name="Options_StartFavorite" xml:space="preserve">
+    <value>Load a favorite</value>
+  </data>
+  <data name="Options_ProbeCount" xml:space="preserve">
+    <value>Probe count:</value>
+  </data>
+  <data name="Options_ColumnCount" xml:space="preserve">
+    <value>Column count:</value>
+  </data>
+  <data name="Options_SelectFavorite" xml:space="preserve">
+    <value>Select a favorite:</value>
+  </data>
+  <data name="Options_TabAdvanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="Options_AdvancedIcmp" xml:space="preserve">
+    <value>Advanced ICMP Options</value>
+  </data>
+  <data name="Options_Ttl" xml:space="preserve">
+    <value>Time to live:</value>
+  </data>
+  <data name="Options_Hops" xml:space="preserve">
+    <value>hops</value>
+  </data>
+  <data name="Options_PacketSize" xml:space="preserve">
+    <value>Packet data size</value>
+  </data>
+  <data name="Options_Bytes" xml:space="preserve">
+    <value>bytes</value>
+  </data>
+  <data name="Options_CustomPacket" xml:space="preserve">
+    <value>Custom packet data</value>
+  </data>
+  <data name="Options_TotalPacketSize" xml:space="preserve">
+    <value>Total packet size:</value>
+  </data>
+  <data name="Options_DontFragment" xml:space="preserve">
+    <value>Don't fragment</value>
+  </data>
+  <data name="Options_DontFragmentTip" xml:space="preserve">
+    <value>The don't fragment flag instructs routers to discard the packet if it is too big. Your maximum transmission unit (MTU) can be determined by enabling this option and adjusting the packet data size.</value>
+  </data>
+  <data name="Options_TabNotifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Options_PopupInfo" xml:space="preserve">
+    <value>Popup alerts appear in the lower right corner of your screen when a host you are monitoring changes status (down or up). You can always show popup alerts, show only when vmPing is minimized, or disable entirely.</value>
+  </data>
+  <data name="Options_PopupDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Options_PopupWhenMinimized" xml:space="preserve">
+    <value>Show when minimized</value>
+  </data>
+  <data name="Options_PopupAlways" xml:space="preserve">
+    <value>Always show</value>
+  </data>
+  <data name="Options_AutoDismiss" xml:space="preserve">
+    <value>Auto-dismiss notifications</value>
+  </data>
+  <data name="Options_AutoDismissTip" xml:space="preserve">
+    <value>Automatically close popup alerts after the specified number of seconds.</value>
+  </data>
+  <data name="Options_TabEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Options_EmailAlerts" xml:space="preserve">
+    <value>Email Alerts</value>
+  </data>
+  <data name="Options_EnableEmail" xml:space="preserve">
+    <value>Enable email alerts</value>
+  </data>
+  <data name="Options_EnableEmailTip" xml:space="preserve">
+    <value>Enable this option to send an email alert every time a host changes status (down or up).</value>
+  </data>
+  <data name="Options_ServerInfo" xml:space="preserve">
+    <value>Server Information</value>
+  </data>
+  <data name="Options_SmtpServer" xml:space="preserve">
+    <value>SMTP server</value>
+  </data>
+  <data name="Options_Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Options_EnableSsl" xml:space="preserve">
+    <value>Enable SSL/TLS</value>
+  </data>
+  <data name="Options_RequiresAuth" xml:space="preserve">
+    <value>This server requires authentication</value>
+  </data>
+  <data name="Options_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Options_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Options_EmailAddresses" xml:space="preserve">
+    <value>Email Addresses</value>
+  </data>
+  <data name="Options_Recipient" xml:space="preserve">
+    <value>Recipient address</value>
+  </data>
+  <data name="Options_FromAddress" xml:space="preserve">
+    <value>From address</value>
+  </data>
+  <data name="Options_Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="Options_TabSounds" xml:space="preserve">
+    <value>Sounds</value>
+  </data>
+  <data name="Options_AudioAlerts" xml:space="preserve">
+    <value>Audio Alerts</value>
+  </data>
+  <data name="Options_AudioDown" xml:space="preserve">
+    <value>Enable audio alert: host down</value>
+  </data>
+  <data name="Options_AudioDownTip" xml:space="preserve">
+    <value>Enable this option to play a sound when a host goes down.</value>
+  </data>
+  <data name="Options_AudioPath" xml:space="preserve">
+    <value>Audio file path</value>
+  </data>
+  <data name="Options_Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="Options_AudioUp" xml:space="preserve">
+    <value>Enable audio alert: host up</value>
+  </data>
+  <data name="Options_AudioUpTip" xml:space="preserve">
+    <value>Enable this option to play a sound when a host comes up.</value>
+  </data>
+  <data name="Options_TabLogging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="Options_LogOutput" xml:space="preserve">
+    <value>Log Output</value>
+  </data>
+  <data name="Options_WriteLog" xml:space="preserve">
+    <value>Write ping output to plain text files</value>
+  </data>
+  <data name="Options_WriteLogTip" xml:space="preserve">
+    <value>If this option is enabled, all ping output is written to a text file. You specify the base directory, and vmPing will generate a separate log file for each host (hostname.txt).</value>
+  </data>
+  <data name="Options_LogPath" xml:space="preserve">
+    <value>Log path (base directory)</value>
+  </data>
+  <data name="Options_LogStatus" xml:space="preserve">
+    <value>Log status changes to text file</value>
+  </data>
+  <data name="Options_LogStatusTip" xml:space="preserve">
+    <value>When enabled, this option writes all status changes to a text file. A status change is when a host you are pinging goes down, or a down host comes back up. The text file is saved in a tab delimited format that is suitable for Excel or database imports.</value>
+  </data>
+  <data name="Options_LogStatusPath" xml:space="preserve">
+    <value>Log path</value>
+  </data>
+  <data name="Options_TabDisplay" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Options_DisplayOptions" xml:space="preserve">
+    <value>Display Options</value>
+  </data>
+  <data name="Options_AlwaysOnTop" xml:space="preserve">
+    <value>Always on top</value>
+  </data>
+  <data name="Options_AlwaysOnTopTip" xml:space="preserve">
+    <value>Keep the vmPing application on top and always visible over other windows.</value>
+  </data>
+  <data name="Options_MinimizeToTray" xml:space="preserve">
+    <value>Minimize to tray</value>
+  </data>
+  <data name="Options_MinimizeToTrayTip" xml:space="preserve">
+    <value>Place an icon in the system tray when vmPing is minimized. No Linux/GNOME, requer a extensão AppIndicator (ver README).</value>
+  </data>
+  <data name="Options_ExitToTray" xml:space="preserve">
+    <value>Exit to tray</value>
+  </data>
+  <data name="Options_ExitToTrayTip" xml:space="preserve">
+    <value>When closing vmPing, the application will minimize to the system tray rather than exit. Right-click the tray icon to exit.</value>
+  </data>
+  <data name="Options_TabColors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
+  <data name="Options_ProbeBackground" xml:space="preserve">
+    <value>Probe Background</value>
+  </data>
+  <data name="Options_ColorInactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="Options_ColorUp" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="Options_ColorDown" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="Options_ColorIndeterminate" xml:space="preserve">
+    <value>Indeterminate</value>
+  </data>
+  <data name="Options_ColorError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Options_ProbeForeground" xml:space="preserve">
+    <value>Probe Foreground</value>
+  </data>
+  <data name="Options_StatsForeground" xml:space="preserve">
+    <value>Statistics Foreground</value>
+  </data>
+  <data name="Options_AliasForeground" xml:space="preserve">
+    <value>Alias Foreground</value>
+  </data>
+  <data name="Options_RestoreDefaults" xml:space="preserve">
+    <value>Restore Defaults</value>
+  </data>
+  <data name="Options_SaveAsDefaults" xml:space="preserve">
+    <value>Save as vmPing defaults</value>
+  </data>
+  <data name="Popup_OpenHistory" xml:space="preserve">
+    <value>Open status history window</value>
+  </data>
+  <data name="StatusHistory_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="StatusHistory_Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="StatusHistory_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StatusHistory_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="StatusHistory_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="TraceRoute_Header" xml:space="preserve">
+    <value>Trace Route to Destination</value>
+  </data>
+  <data name="TraceRoute_Watermark" xml:space="preserve">
+    <value>Enter target address</value>
+  </data>
+  <data name="Usage_Header" xml:space="preserve">
+    <value>Command line usage:</value>
+  </data>
+  <data name="Usage_Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="Usage_Interval" xml:space="preserve">
+    <value>Specifies the interval, in seconds, between pings.</value>
+  </data>
+  <data name="Usage_IntervalRange" xml:space="preserve">
+    <value>Valid range: 1 to 86400 (1 second to 24 hours).</value>
+  </data>
+  <data name="Usage_Timeout" xml:space="preserve">
+    <value>Set the timeout, in seconds, for each ping request.</value>
+  </data>
+  <data name="Usage_TimeoutRange" xml:space="preserve">
+    <value>Valid range: 1 to 60 seconds.</value>
+  </data>
+  <data name="Usage_Minimized" xml:space="preserve">
+    <value>Start the application in a minimized state.</value>
+  </data>
+  <data name="Usage_Hostname" xml:space="preserve">
+    <value>A hostname or IP address to ping.</value>
+  </data>
+  <data name="Usage_HostnameMulti" xml:space="preserve">
+    <value>You can provide multiple hostnames.</value>
+  </data>
+  <data name="Usage_File" xml:space="preserve">
+    <value>The path to a text file containing hostnames or IP addresses to ping. Wrap the path in quotes if it contains spaces. You can provide multiple files.</value>
+  </data>
+  <data name="Usage_Examples" xml:space="preserve">
+    <value>Examples:</value>
+  </data>
+  <data name="FloodHost_Start" xml:space="preserve">
+    <value>Flood Host</value>
+  </data>
+  <data name="FloodHost_Stop" xml:space="preserve">
+    <value>Stop Flood</value>
+  </data>
+  <data name="TraceRoute_Start" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="Msg_InvalidColumns" xml:space="preserve">
+    <value>Please enter a valid number of columns (between 1 and 10).</value>
+  </data>
+  <data name="Msg_NoHosts" xml:space="preserve">
+    <value>You have not entered any hosts. Provide at least one host for this favorite set.</value>
+  </data>
+  <data name="Msg_InvalidInterval" xml:space="preserve">
+    <value>Please enter a valid ping interval.</value>
+  </data>
+  <data name="Msg_InvalidTimeout" xml:space="preserve">
+    <value>Please enter a valid ping timeout.</value>
+  </data>
+  <data name="Msg_InvalidThreshold" xml:space="preserve">
+    <value>Please enter a valid alert threshold.</value>
+  </data>
+  <data name="Msg_InvalidAutoDismiss" xml:space="preserve">
+    <value>Please enter a valid number of seconds for the auto-dismiss interval.</value>
+  </data>
+  <data name="Msg_InvalidTtl" xml:space="preserve">
+    <value>Please enter a valid time to live (TTL) between 1 and 255.</value>
+  </data>
+  <data name="Msg_InvalidPacketSize" xml:space="preserve">
+    <value>Please enter a valid data size between 0 and 65,500.</value>
+  </data>
+  <data name="Msg_InvalidSmtpServer" xml:space="preserve">
+    <value>Please enter a valid SMTP server address.</value>
+  </data>
+  <data name="Msg_InvalidSmtpPort" xml:space="preserve">
+    <value>Please enter a valid port number for your SMTP server.</value>
+  </data>
+  <data name="Msg_InvalidRecipient" xml:space="preserve">
+    <value>Please enter a valid recipient email address. This address will receive email alerts from vmPing.</value>
+  </data>
+  <data name="Msg_InvalidFrom" xml:space="preserve">
+    <value>Please enter a valid 'from' address. This address appears as the sender for any alerts that are sent.</value>
+  </data>
+  <data name="Msg_InvalidUsername" xml:space="preserve">
+    <value>Please enter a valid username for your mail server.</value>
+  </data>
+  <data name="Msg_PathNotFound" xml:space="preserve">
+    <value>The specified path does not exist. Please enter a valid path.</value>
+  </data>
+  <data name="Msg_PathNotFound2" xml:space="preserve">
+    <value>The specified path does not exist.  Please enter a valid path.</value>
+  </data>
+  <data name="Msg_InvalidColor" xml:space="preserve">
+    <value>Please enter a valid HTML color code.  Accepted formats are #RGB, #RRGGBB, and #AARRGGBB.  Example: #3266CF</value>
+  </data>
+  <data name="Msg_AudioPlayFailed" xml:space="preserve">
+    <value>Unable to play audio file.</value>
+  </data>
+  <data name="Msg_TestFailed" xml:space="preserve">
+    <value>Test failed:</value>
+  </data>
+  <data name="Msg_ExportTitle" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Msg_ExportedTo" xml:space="preserve">
+    <value>Status history exported to:</value>
+  </data>
+  <data name="Msg_ReadConfigFailed" xml:space="preserve">
+    <value>Failed to read configuration file.</value>
+  </data>
+  <data name="Msg_FavoriteNotFound" xml:space="preserve">
+    <value>The requested favorite was not found:</value>
+  </data>
+  <data name="Msg_LogWriteFailed" xml:space="preserve">
+    <value>Failed writing to log file. Logging has been disabled. Error:</value>
+  </data>
+  <data name="Msg_AudioFailed" xml:space="preserve">
+    <value>Failed to play audio file. Audio alerts have been disabled. Error:</value>
+  </data>
+  <data name="Help_ForkSubtitle" xml:space="preserve">
+    <value>Linux port (Avalonia)</value>
+  </data>
+  <data name="Help_BasedOn" xml:space="preserve">
+    <value>Based on vmPing by Ryan Smith</value>
+  </data>
+  <data name="Help_License" xml:space="preserve">
+    <value>Distributed under the MIT License.</value>
+  </data>
+  <data name="FileBrowser_Title" xml:space="preserve">
+    <value>Select a file</value>
+  </data>
+  <data name="FileBrowser_TitleFolder" xml:space="preserve">
+    <value>Select a folder</value>
+  </data>
+  <data name="FileBrowser_Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="FileBrowser_Go" xml:space="preserve">
+    <value>Go</value>
+  </data>
+</root>

@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=vmPing
+GenericName=Ping Monitor
+GenericName[pt_BR]=Monitor de ping
+Comment=Monitor multiple hosts with ping, traceroute and DNS lookups
+Comment[pt_BR]=Monitore vários hosts com ping, traceroute e consultas DNS
+Exec=/usr/bin/vmping
+Icon=vmping
+Terminal=false
+Categories=Network;Monitor;
+Keywords=ping;icmp;network;monitor;traceroute;dns;nslookup;dig;
+Keywords[pt_BR]=ping;icmp;rede;monitor;traceroute;dns;nslookup;dig;
+StartupNotify=true
+StartupWMClass=vmping

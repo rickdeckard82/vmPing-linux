@@ -1,0 +1,128 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        FASE 5 — estilos globais aproximando o visual do vmPing original.
+
+        Estratégia deliberada (registrada também no MIGRATION_PLAN.md): em vez
+        de portar 1:1 os 17 ResourceDictionaries do WPF (~3200 linhas de
+        ControlTemplate + Trigger, modelo incompatível com o de estilos do
+        Avalonia), sobrescreve-se só o que o tema Fluent faz diferente do visual
+        original: cantos arredondados -> quadrados, paleta -> a do vmPing
+        (ButtonStandardStyle: #e1e1e1 / borda #abadb3 / hover #c9def5 /
+        pressionado #fafafa / desabilitado #d0d0d0).
+
+        [Certo] O padrão "Selector com /template/ ContentPresenter#PART_ContentPresenter"
+        é a forma canônica de sobrescrever o fundo de hover/pressed do tema
+        Fluent — o tema aplica essas cores no presenter interno do template,
+        então setar só Button:pointerover Background não tem efeito visível.
+
+        O que NÃO foi replicado (consciente):
+          - FocusVisualStyle tracejado do WPF -> fica o anel de foco do Fluent.
+          - Estilos dark dedicados (ButtonStyle.Dark) -> as janelas escuras
+            (FloodHost/TraceRoute) usam os mesmos botões claros; contraste ok.
+          - Estilos de ScrollBar/Slider/DataGrid/Menu customizados -> Fluent
+            padrão. Alto volume, baixo retorno; entra depois se fizer falta.
+    -->
+
+    <!-- Botões: paleta do ButtonStandardStyle original. Ajustes pedidos pelo
+         usuário (2026-08-02): conteúdo CENTRALIZADO (o Fluent alinha à
+         esquerda por padrão — era o texto "grudado" na borda do botão
+         Consultar), padding maior e canto levemente arredondado (3px) — leve
+         desvio consciente do quadrado 0px do original, a pedido ("deixe os
+         mais bonitos"). -->
+    <Style Selector="Button">
+        <Setter Property="Background" Value="#e1e1e1" />
+        <Setter Property="BorderBrush" Value="#abadb3" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="14,6" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#c9def5" />
+        <Setter Property="BorderBrush" Value="#303030" />
+    </Style>
+    <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#fafafa" />
+    </Style>
+    <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#d0d0d0" />
+        <Setter Property="BorderBrush" Value="#adb2b5" />
+        <Setter Property="Foreground" Value="#808080" />
+    </Style>
+
+    <!-- Botão "primário" (IsDefault=True — Ping/Trace/Consultar/OK): azul do
+         ButtonStyle original (#268bd2, hover #46abf2, pressionado #066bb2),
+         texto branco. Seletor por propriedade (Button[IsDefault=True]) é
+         sintaxe core do Avalonia. -->
+    <Style Selector="Button[IsDefault=True]">
+        <Setter Property="Background" Value="#268bd2" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="#1d6ba3" />
+    </Style>
+    <Style Selector="Button[IsDefault=True]:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#46abf2" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button[IsDefault=True]:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#066bb2" />
+        <Setter Property="Foreground" Value="#dddddd" />
+    </Style>
+
+    <!-- Caixas de texto: quadradas, fundo branco, borda fina como no original -->
+    <Style Selector="TextBox">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="#abadb3" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <!-- [Certo] Bug real reportado: TextBox escuro (saída do nslookup/dig)
+         ficava BRANCO ao passar o mouse. O template do Fluent troca o fundo
+         do Border interno (PART_BorderElement) nos estados :pointerover e
+         :focus pelos recursos do tema (TextControlBackgroundPointerOver etc.),
+         ignorando o Background local do controle. Estes estilos prendem o
+         fundo de hover/foco ao Background declarado do próprio TextBox
+         (binding pro ancestral), preservando fundo escuro escuro e fundo
+         claro claro. Também cobre o histórico escuro do IsolatedPingWindow,
+         que tinha o mesmo bug latente.
+         [Provável] O nome do part (PART_BorderElement) vem do template do
+         Fluent e não foi verificado contra o código-fonte nesta sessão — se
+         o hover continuar branco depois do build, é aqui que se mexe (plano
+         B: trocar a saída por SelectableTextBlock, que não tem esse estado). -->
+    <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{Binding $parent[TextBox].Background}" />
+    </Style>
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{Binding $parent[TextBox].Background}" />
+    </Style>
+
+    <!-- ComboBox e CheckBox: só tirar o arredondamento do Fluent -->
+    <Style Selector="ComboBox">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="#abadb3" />
+    </Style>
+    <Style Selector="CheckBox">
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+
+    <!-- Ícones vetoriais dentro de botões: tamanho e alinhamento padrão.
+         Classes="probe-action" é usada nos botõezinhos do cabeçalho de cada
+         probe no grid principal (editar alias / visão isolada / remover). -->
+    <Style Selector="Button.probe-action">
+        <Setter Property="Padding" Value="7,5" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.probe-action Path">
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Width" Value="11" />
+        <Setter Property="Height" Value="11" />
+    </Style>
+
+</Styles>

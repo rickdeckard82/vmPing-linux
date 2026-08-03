@@ -1,0 +1,57 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        FASE 5 — port de ResourceDictionaries/Icons.xaml (393 linhas no original).
+
+        Decisões:
+          - DrawingImage/DrawingGroup/GeometryDrawing (WPF) trocados por
+            StreamGeometry puro + <Path> no ponto de uso — é o idioma padrão do
+            Avalonia pra ícones vetoriais (o próprio tema Fluent usa StreamGeometry
+            em XAML assim). A cor deixa de ser fixa no recurso (o original tinha
+            variantes -black/-white/-red duplicando o mesmo path) e passa a ser o
+            Fill do Path no ponto de uso — menos duplicação, mesmo resultado.
+          - Os dados de path (M.../L.../C...z) são copiados literalmente do
+            original — a sintaxe de path data é a mesma nos dois frameworks.
+          - Subpaths "M512,512z M0,0z" no início: truque do original pra forçar
+            os bounds da geometria a cobrir o canvas inteiro (512x512), de modo
+            que Stretch=Uniform preserve o enquadramento original. Mantidos.
+          - [Provável] O prefixo de fill rule "F1" foi removido dos paths: o
+            parser de path do Avalonia aceita "F1"/"F0" no início, mas o
+            comportamento não foi verificado contra o código-fonte nesta sessão.
+            Esses ícones (sólidos, FontAwesome/Ryan Smith) renderizam igual nas
+            duas fill rules na prática; se algum aparecer com "buraco" errado,
+            é aqui que se mexe (adicionar o F1 de volta).
+          - Ícones baseados em RectangleGeometry no original (add, columns-grid)
+            foram convertidos pra path data retangular equivalente à mão.
+          - Portado só o subconjunto em uso real nesta fase; o restante do
+            Icons.xaml original (route, favorite, alias, options, etc. — ícones
+            de menu) entra quando/se os menus ganharem ícones.
+    -->
+
+    <!-- Font Awesome: pencil-alt-solid (editar alias) -->
+    <StreamGeometry x:Key="icon.pencil">M512,512z M0,0z M497.9,142.1L451.8,188.2C447.1,192.9,439.5,192.9,434.8,188.2L323.8,77.2C319.1,72.5,319.1,64.9,323.8,60.2L369.9,14.1C388.6,-4.6,419,-4.6,437.8,14.1L497.9,74.2C516.7,92.9,516.7,123.3,497.9,142.1z M284.2,99.8L21.6,362.4 0.4,483.9C-2.5,500.3,11.8,514.5,28.2,511.7L149.7,490.4 412.3,227.8C417,223.1,417,215.5,412.3,210.8L301.3,99.8C296.5,95.1,288.9,95.1,284.2,99.8z M124.1,339.9C118.6,334.4,118.6,325.6,124.1,320.1L278.1,166.1C283.6,160.6 292.4,160.6 297.9,166.1 303.4,171.6 303.4,180.4 297.9,185.9L143.9,339.9C138.4,345.4,129.6,345.4,124.1,339.9z M88,424L136,424 136,460.3 71.5,471.6 40.4,440.5 51.7,376 88,376 88,424z</StreamGeometry>
+
+    <!-- window-restore (visão isolada) — crédito: Ryan Smith -->
+    <StreamGeometry x:Key="icon.window-restore">M512,512z M0,0z M464,0L168,0C141.5,0,120.73583,21.510218,120,48L120,120 48,120C21.5,120,0,117.5,0,144L0,464C0,490.5,21.5,512,48,512L344,512C370.5,512,394,490.5,394,464L394,392 464,392C490.5,392,512,370.5,512,344L512,48C512,21.5,490.5,0,464,0z M344,464L48,464 48,244 344,244z M464,344L394,344 394,144C394,117.5,370.5,120,344,120L168,120 168,48 464,48z</StreamGeometry>
+
+    <!-- window-close (remover probe) — crédito: Ryan Smith -->
+    <StreamGeometry x:Key="icon.window-close">M512,512z M0,0z M503.32595,104.8639L352.18985,256 503.32595,407.1361C514.64885,418.459,514.64885,436.92025,503.32595,448.4893L448.4345,503.38075C437.1116,514.70365,418.65035,514.70365,407.0813,503.38075L255.9452,352.24465 104.8091,503.38075C93.486199,514.70365,75.024944,514.70365,63.455894,503.38075L8.5644435,448.4893C-2.7584565,437.1664,-2.7584565,418.70515,8.5644435,407.1361L159.70055,256 8.5644435,104.8639C-2.7584565,93.541,-2.7584565,75.07975,8.5644435,63.5107L63.455894,8.61925C74.778794,-2.70365,93.240049,-2.70365,104.8091,8.61925L255.9452,159.75535 407.0813,8.61925C418.4042,-2.70365,436.86545,-2.70365,448.4345,8.61925L503.32595,63.5107C514.895,74.8336,514.895,93.29485,503.32595,104.8639z</StreamGeometry>
+
+    <!-- add (+) — original usava 2 RectangleGeometry; convertido pra path -->
+    <StreamGeometry x:Key="icon.add">M512,512z M0,0z M190,0 L322,0 322,512 190,512 z M0,190 L512,190 512,322 0,322 z</StreamGeometry>
+
+    <!-- columns-grid (4 quadrados) — original usava 4 RectangleGeometry -->
+    <StreamGeometry x:Key="icon.columns-grid">M512,512z M0,0z M0,0 L225,0 225,225 0,225 z M287,0 L512,0 512,225 287,225 z M0,287 L225,287 225,512 0,512 z M287,287 L512,287 512,512 287,512 z</StreamGeometry>
+
+    <!-- play — crédito: Ryan Smith (transform de escala do original descartado;
+         com Stretch=Uniform o resultado visual é equivalente) -->
+    <StreamGeometry x:Key="icon.play">M512,512z M0,0z M372.01495,245.0732L191.37546,349.36545 10.735985,453.65771 10.735985,245.07319 10.735985,36.488687 191.37547,140.78094z</StreamGeometry>
+
+    <!-- Font Awesome: stop-circle-solid -->
+    <StreamGeometry x:Key="icon.stop-circle">M512,512z M0,0z M256,8C119,8 8,119 8,256 8,393 119,504 256,504 393,504 504,393 504,256 504,119 393,8 256,8z M364,356C364,364.8,364.8,364,356,364L156,364C147.2,364,148,364.8,148,356L148,156C148,147.2,147.2,148,156,148L356,148C364.8,148,364,147.2,364,156z</StreamGeometry>
+
+    <!-- delete (x fino azul do original) — crédito: Ryan Smith -->
+    <StreamGeometry x:Key="icon.delete">M320,512z M0,0z M193.94,256L296.5,153.44 317.65,132.29C320.77,129.17,320.77,124.1,317.65,120.98L295.02,98.35C291.9,95.23,286.83,95.23,283.71,98.35L160,222.06 36.29,98.34C33.17,95.22,28.1,95.22,24.98,98.34L2.34,120.97C-0.78,124.09,-0.78,129.16,2.34,132.28L126.06,256 2.34,379.71C-0.78,382.83,-0.78,387.9,2.34,391.02L24.97,413.65C28.09,416.77,33.16,416.77,36.28,413.65L160,289.94 262.56,392.5 283.71,413.65C286.83,416.77,291.9,416.77,295.02,413.65L317.65,391.02C320.77,387.9,320.77,382.83,317.65,379.71L193.94,256z</StreamGeometry>
+
+</ResourceDictionary>

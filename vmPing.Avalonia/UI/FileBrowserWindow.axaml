@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.FileBrowserWindow"
+        Title="{x:Static p:Strings.FileBrowser_Title}"
+        Width="600" Height="460"
+        MinWidth="420" MinHeight="320"
+        WindowStartupLocation="CenterOwner"
+        Background="#e1e1e1">
+
+    <!--
+        Seletor de arquivos/pastas PRÓPRIO, escrito para este port.
+
+        Razão de existir: o seletor nativo (IStorageProvider, que usa o
+        xdg-desktop-portal via D-Bus) falha com AccessDenied em ambientes
+        afetados por um bug conhecido do portal (issues 1653/1756 do
+        flatpak/xdg-desktop-portal — xdp_pidfd_get_namespace recebe um pidfd
+        anônimo onde espera um fd de diretório). Sem correção upstream, e o
+        usuário fica sem como escolher arquivo pela interface.
+
+        Estratégia: o nativo continua sendo a primeira opção (melhor UX,
+        integra com marcadores/pastas recentes do desktop); ESTA janela entra
+        automaticamente como fallback quando ele falha. Nada de D-Bus aqui —
+        só System.IO, que funciona em qualquer ambiente.
+    -->
+
+    <DockPanel Margin="12">
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,10">
+            <Button Grid.Column="0" Name="UpButton" Click="Up_Click"
+                    Content="{x:Static p:Strings.FileBrowser_Up}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Name="PathBox" Margin="8,0"
+                     FontFamily="monospace" VerticalAlignment="Center"
+                     KeyDown="PathBox_KeyDown" />
+            <Button Grid.Column="2" Name="GoButton" Click="Go_Click"
+                    Content="{x:Static p:Strings.FileBrowser_Go}" VerticalAlignment="Center" />
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,Auto,Auto" Margin="0,10,0,0">
+            <TextBlock Grid.Column="0" Name="SelectionInfo" VerticalAlignment="Center"
+                       Foreground="#555" TextTrimming="CharacterEllipsis" />
+            <Button Grid.Column="1" Name="OkButton" Click="Ok_Click" IsDefault="True"
+                    MinWidth="100" Content="{x:Static p:Strings.DialogButton_OK}" />
+            <Button Grid.Column="2" Click="Cancel_Click" IsCancel="True" Margin="8,0,0,0"
+                    MinWidth="100" Content="{x:Static p:Strings.DialogButton_Cancel}" />
+        </Grid>
+
+        <ListBox Name="Entries" Background="White" BorderBrush="#abadb3" BorderThickness="1"
+                 DoubleTapped="Entries_DoubleTapped" SelectionChanged="Entries_SelectionChanged" />
+    </DockPanel>
+</Window>

@@ -1,0 +1,84 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.UsageWindow"
+        Title="vmPing"
+        Width="600"
+        CanResize="False"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/UsageWindow.xaml original.
+        Mostrada quando o usuário passa a flag de ajuda (-h, -?, ou a forma
+        longa) na linha de comando (ver Classes/CommandLine.cs). Sem o ícone
+        .ico (Fase 5) e sem os
+        estilos customizados de botão (ButtonStandardStyle, ResourceDictionaries
+        ainda não portados) — botão padrão do Avalonia por enquanto.
+    -->
+    <Grid RowDefinitions="*,Auto">
+
+        <StackPanel Grid.Row="0" Margin="20,10,20,20" Spacing="4">
+            <StackPanel.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="FontFamily" Value="monospace" />
+                    <Setter Property="FontSize" Value="13" />
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                </Style>
+            </StackPanel.Styles>
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="vmPing" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" />
+                <TextBlock Name="AppVersion" FontSize="13" Opacity="0.6" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <TextBlock Margin="0,16,0,0" Text="{x:Static p:Strings.Usage_Header}" FontWeight="SemiBold" />
+            <TextBlock Text="vmping [OPTIONS] [HOSTNAME...] [FILE...]" />
+
+            <TextBlock Margin="0,16,0,0" Text="{x:Static p:Strings.Usage_Options}" FontWeight="SemiBold" />
+
+            <Grid ColumnDefinitions="130,*" Margin="0,4,0,0">
+                <TextBlock Grid.Column="0" Text="-i &lt;interval&gt;" />
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{x:Static p:Strings.Usage_Interval}" Opacity="0.8" />
+                    <TextBlock Text="{x:Static p:Strings.Usage_IntervalRange}" Opacity="0.8" />
+                </StackPanel>
+            </Grid>
+            <Grid ColumnDefinitions="130,*" Margin="0,4,0,0">
+                <TextBlock Grid.Column="0" Text="-w &lt;timeout&gt;" />
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{x:Static p:Strings.Usage_Timeout}" Opacity="0.8" />
+                    <TextBlock Text="{x:Static p:Strings.Usage_TimeoutRange}" Opacity="0.8" />
+                </StackPanel>
+            </Grid>
+            <Grid ColumnDefinitions="130,*" Margin="0,4,0,0">
+                <TextBlock Grid.Column="0" Text="-minimized" />
+                <TextBlock Grid.Column="1" Text="{x:Static p:Strings.Usage_Minimized}" Opacity="0.8" />
+            </Grid>
+            <Grid ColumnDefinitions="130,*" Margin="0,4,0,0">
+                <TextBlock Grid.Column="0" Text="&lt;hostname&gt;" />
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{x:Static p:Strings.Usage_Hostname}" Opacity="0.8" />
+                    <TextBlock Text="{x:Static p:Strings.Usage_HostnameMulti}" Opacity="0.8" />
+                </StackPanel>
+            </Grid>
+            <Grid ColumnDefinitions="130,*" Margin="0,4,0,0">
+                <TextBlock Grid.Column="0" Text="&lt;file&gt;" />
+                <TextBlock Grid.Column="1"
+                           Text="{x:Static p:Strings.Usage_File}"
+                           Opacity="0.8" />
+            </Grid>
+
+            <TextBlock Margin="0,16,0,0" Text="{x:Static p:Strings.Usage_Examples}" FontWeight="SemiBold" />
+            <TextBlock Text="vmping -i 5 -w 2 192.168.0.1 172.16.50.1 10.2.0.32" />
+            <TextBlock Text="vmping &quot;/home/user/servers.txt&quot;" />
+            <TextBlock Text="vmping -minimized 192.168.5.20 web.example.com" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="#f0f0f0" BorderBrush="#dfdfdf" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                <Button MinWidth="100" IsDefault="True" Content="{x:Static p:Strings.DialogButton_OK}" Click="OK_Click" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

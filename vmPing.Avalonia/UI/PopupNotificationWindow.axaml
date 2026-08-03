@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        xmlns:classes="clr-namespace:vmPing.Classes"
+        x:Class="vmPing.UI.PopupNotificationWindow"
+        Title="vmPing"
+        MinWidth="500" Height="95"
+        SizeToContent="Width"
+        CanResize="False"
+        SystemDecorations="None"
+        ShowInTaskbar="False"
+        Topmost="True"
+        Background="#282829"
+        Opacity="0"
+        SizeChanged="Window_SizeChanged"
+        PointerReleased="Window_PointerReleased">
+
+    <!-- FASE 5 (rodada 3) — fade-in de entrada (o DoubleAnimation de opacidade
+         do original): Opacity começa em 0 e o code-behind seta 1 no Opened; a
+         DoubleTransition abaixo anima a passagem. Failsafe deliberado: se a
+         transição não rodar nesse compositor/ambiente, o Opened ainda seta
+         Opacity=1 e o popup aparece normalmente, só sem o fade — nunca fica
+         invisível. (A animação de escala do original não foi portada.) -->
+    <Window.Transitions>
+        <Transitions>
+            <DoubleTransition Property="Opacity" Duration="0:0:0.25" />
+        </Transitions>
+    </Window.Transitions>
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/PopupNotificationWindow.xaml
+        original. Popup sem moldura no canto inferior direito da tela,
+        mostrando as últimas mudanças de status; auto-dismiss configurável.
+        NÃO portado (documentado): animação de entrada (DoubleAnimation de
+        opacidade/escala, Fase 5), botões min/close com ControlTemplate
+        customizado e hover -> botões padrão do Avalonia, glifo de status
+        Marlett -> Unicode (mesmo padrão de Classes/ValueConverters.cs).
+        [Provável] Posicionamento usa Screens.Primary.WorkingArea — API não
+        verificada contra o código-fonte nesta sessão (rate limit da API do
+        GitHub); se o build reclamar, é o primeiro lugar a olhar.
+    -->
+    <Window.Resources>
+        <classes:StatusChangeLogToBrushConverter x:Key="StatusChangeLogToBrushConverter" />
+    </Window.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="⤢" Padding="6,2" Background="Transparent" ToolTip.Tip="{x:Static p:Strings.Popup_OpenHistory}" Click="Maximize_Click" VerticalAlignment="Center" />
+            <Button Content="✕" Padding="6,2" Background="Transparent" ToolTip.Tip="{x:Static p:Strings.Tooltip_Close}" Click="Close_Click" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <ListBox Name="StatusHistoryList" Grid.Row="1" Background="Transparent" BorderThickness="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="classes:StatusChangeLog">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" Text="●" FontSize="16" VerticalAlignment="Center" Padding="5,0,0,0"
+                                   Foreground="{Binding Status, Converter={StaticResource StatusChangeLogToBrushConverter}}" />
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding Timestamp, StringFormat='[{0}]'}" FontSize="14"
+                                   Foreground="White" Opacity="0.6" VerticalAlignment="Center" Padding="6,0,0,0" />
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding AliasIfExistOrHostname}" FontSize="16"
+                                   Foreground="White" VerticalAlignment="Center" Padding="9,0,0,0" />
+                        <TextBlock DockPanel.Dock="Left" Text=" -&gt; " FontSize="16" Foreground="White" Opacity="0.6" VerticalAlignment="Center" />
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding StatusAsString}" FontSize="16" VerticalAlignment="Center"
+                                   Foreground="{Binding Status, Converter={StaticResource StatusChangeLogToBrushConverter}}" />
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,6,4">
+            <TextBlock Text="vmPing" FontSize="12" Foreground="White" Opacity="0.5" VerticalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Window>

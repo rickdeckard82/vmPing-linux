@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.NewAliasWindow"
+        Title="{x:Static p:Strings.NewAlias_WindowTitle}"
+        Width="400"
+        CanResize="False"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/NewAliasWindow.xaml original.
+        Distinta de EditAliasWindow: esta pede hostname E alias (usada pelo
+        botão "New" de ManageAliasesWindow); EditAliasWindow só pede o alias
+        porque o hostname já vem de um probe existente. Sem ícone vetorial
+        (icon.alias, Fase 5).
+    -->
+    <StackPanel Margin="16" Spacing="10">
+        <TextBlock Text="{x:Static p:Strings.NewAlias_Header2}" FontWeight="SemiBold" FontSize="14" />
+
+        <Grid ColumnDefinitions="60,*" Margin="0,6,0,0">
+            <TextBlock Grid.Column="0" Text="{x:Static p:Strings.NewAlias_Host}" VerticalAlignment="Center" Opacity="0.7" />
+            <TextBox Name="Hostname" Grid.Column="1" MaxLength="64" />
+        </Grid>
+
+        <Grid ColumnDefinitions="60,*">
+            <TextBlock Grid.Column="0" Text="{x:Static p:Strings.NewAlias_Alias}" VerticalAlignment="Center" Opacity="0.7" />
+            <TextBox Name="NewAlias" Grid.Column="1" MaxLength="64" />
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,6,0,0">
+            <Button Content="{x:Static p:Strings.DialogButton_Save}" MinWidth="85" IsDefault="True" Click="Save_Click" VerticalAlignment="Center" />
+            <Button Content="{x:Static p:Strings.DialogButton_Cancel}" MinWidth="85" Click="Cancel_Click" VerticalAlignment="Center" />
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,11 @@
+#!/bin/sh
+# postrm: a configuração do usuário fica em ~/.config/vmPing e NÃO é removida —
+# é dado do usuário, e o postrm roda como root (não teria como limpar o HOME de
+# cada usuário de forma confiável de qualquer jeito).
+set -e
+
+# [Certo] Sem gtk-update-icon-cache aqui, pela mesma razão documentada no
+# postinst: o trigger do hicolor-icon-theme cuida do cache na remoção também.
+# A versão anterior chamava manualmente e gerava cache inválido.
+
+exit 0

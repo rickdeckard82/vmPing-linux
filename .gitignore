@@ -1,0 +1,21 @@
+# Build do .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Publish / artefatos de distribuição
+# O .deb vai para os Releases do GitHub, não para o repositório (28 MB).
+publish/
+*.deb
+SHA256SUMS
+
+# Editores
+.vs/
+.vscode/
+.idea/
+*.swp
+*~
+
+# Sistema
+.DS_Store

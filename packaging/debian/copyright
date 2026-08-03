@@ -1,0 +1,69 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: vmPing
+Upstream-Contact: Ryan Smith
+Source: https://github.com/rickdeckard82/vmPing-linux
+Comment: Este pacote distribui o port para Linux (Avalonia/.NET 8) mantido em
+ https://github.com/rickdeckard82/vmPing-linux, derivado do vmPing original
+ (WPF/Windows) de Ryan Smith: https://github.com/R-Smith/vmPing
+
+Files: *
+Copyright: 2020 Ryan Smith
+           2026 Everton Herculano (port para Linux/Avalonia)
+License: MIT
+
+Files: vmPing.Avalonia/Assets/vmPing.ico
+       vmPing.Avalonia/Assets/vmPing-16.png
+Copyright: 2020 Ryan Smith
+License: MIT
+Comment: Ícones originais do projeto vmPing, reutilizados sem alteração.
+
+Files: vmPing.Avalonia/Classes/Constants.cs
+       vmPing.Avalonia/Classes/PingStatistics.cs
+       vmPing.Avalonia/Classes/FloodHostNode.cs
+       vmPing.Avalonia/Classes/NetworkRouteNode.cs
+       vmPing.Avalonia/Classes/StatusChangeLog.cs
+       vmPing.Avalonia/Classes/Alias.cs
+       vmPing.Avalonia/Classes/Favorite.cs
+       vmPing.Avalonia/Classes/NetworkRoute.cs
+       vmPing.Avalonia/Classes/Probe-Dns.cs
+       vmPing.Avalonia/Classes/Probe-Traceroute.cs
+       vmPing.Avalonia/Properties/Strings.Designer.cs
+       vmPing.Avalonia/Properties/Strings.resx
+Copyright: 2020 Ryan Smith
+License: MIT
+Comment: Copiados quase sem alteração do vmPing original (WPF/Windows).
+
+Comment: A publicação self-contained (dotnet publish --self-contained) embute
+ binários do .NET runtime e da biblioteca Avalonia dentro deste pacote .deb.
+ Ambos são licenciados sob MIT, compatível com a licença acima:
+   .NET runtime  - https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+   Avalonia UI   - https://github.com/AvaloniaUI/Avalonia/blob/master/licence.md
+ [Chutando] Esta lista não foi conferida contra o publish real (não consegui
+ rodar `dotnet publish` neste ambiente). Antes de distribuir, rode
+ `dotnet-project-licenses` ou equivalente sobre a árvore publicada e confirme
+ que nenhum pacote transitivo trouxe licença incompatível (ex: GPL/LGPL).
+ .
+ MsBox.Avalonia foi avaliado como substituto do MessageBox do WPF na Fase 2 e
+ depois removido: o único release publicado no NuGet (3.0.0-rc2) tem API
+ instável demais para depender (build real deu erro de compilação). Não é
+ mais uma dependência deste projeto — UI/DialogWindow.cs é implementação
+ própria, sem pacote externo.
+
+License: MIT
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.

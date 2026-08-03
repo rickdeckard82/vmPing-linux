@@ -1,0 +1,9 @@
+# Normaliza fim de linha; scripts shell sempre LF (quebram com CRLF).
+* text=auto
+*.sh text eol=lf
+packaging/debian/post* text eol=lf
+
+# Binários
+*.png binary
+*.ico binary
+*.oga binary

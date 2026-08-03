@@ -1,0 +1,146 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.HelpWindow"
+        Title="{x:Static p:Strings.Help_WindowTitle}"
+        Width="750" Height="575"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
+        KeyDown="Window_PreviewKeyDown"
+        Closed="Window_Closed">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/HelpWindow.xaml original (321
+        linhas); ver histórico de simplificações no MIGRATION_PLAN.md
+        (FlowDocument -> ScrollViewer+StackPanel, TreeView de navegação
+        removida, Hyperlink -> PointerPressed + xdg-open).
+
+        FASE 5/i18n — todo o conteúdo saiu do XAML pro resx (chaves Help_*,
+        traduzidas em Strings.pt-BR.resx). Perda deliberada: os trechos em
+        negrito no meio de parágrafos (Runs compostos, ex. "Click *Add Host*
+        from...") viraram texto corrido com aspas, pra cada parágrafo ser UMA
+        chave de tradução em vez de 4-5 fragmentos frágeis que quebram a
+        frase em idiomas com ordem diferente. Também corrigidos dois typos do
+        texto original ("continuosly", "occurrs") e o atalho de Add Host
+        (original dizia Alt-A; o port usa Ctrl+A).
+    -->
+
+    <ScrollViewer Padding="30,10,30,30">
+        <StackPanel MaxWidth="640" HorizontalAlignment="Center">
+
+            <!-- Title -->
+            <TextBlock Text="vmPing" FontSize="26" FontWeight="SemiBold"
+                       HorizontalAlignment="Center" Margin="0,10,0,0" />
+            <TextBlock Text="{x:Static p:Strings.Help_ForkSubtitle}" FontSize="14"
+                       Foreground="#707070" HorizontalAlignment="Center" />
+
+            <!-- Link do fork (este port). O link do projeto original fica
+                 logo abaixo, na atribuição — a licença MIT do original exige
+                 preservar o aviso de copyright, e além da obrigação legal é
+                 o crédito correto a quem escreveu o app. -->
+            <TextBlock Name="ForkLink" Text="https://github.com/rickdeckard82/vmPing-linux" FontSize="16"
+                       Foreground="#6c71c4" Cursor="Hand"
+                       HorizontalAlignment="Center" Margin="0,6,0,0"
+                       PointerPressed="ForkLink_PointerPressed" />
+
+            <!-- Version / copyright -->
+            <TextBlock Name="Version" Text="Version X.XXXX.XXXX" FontSize="16"
+                       Foreground="#707070" HorizontalAlignment="Center" Margin="0,10,0,0" />
+            <TextBlock Name="Copyright" Text="Copyright (C) 2026 Everton Herculano" FontSize="16"
+                       Foreground="#707070" HorizontalAlignment="Center" />
+
+            <!-- Atribuição ao projeto original -->
+            <TextBlock Text="{x:Static p:Strings.Help_BasedOn}" FontSize="14"
+                       Foreground="#707070" HorizontalAlignment="Center" Margin="0,12,0,0" />
+            <TextBlock Text="Copyright (C) Ryan Smith" FontSize="14"
+                       Foreground="#707070" HorizontalAlignment="Center" />
+            <TextBlock Name="UpstreamLink" Text="https://github.com/R-Smith/vmPing" FontSize="14"
+                       Foreground="#6c71c4" Cursor="Hand"
+                       HorizontalAlignment="Center"
+                       PointerPressed="Hyperlink_PointerPressed" />
+            <TextBlock Text="{x:Static p:Strings.Help_License}" FontSize="14"
+                       Foreground="#707070" HorizontalAlignment="Center" Margin="0,4,0,0" />
+
+            <Rectangle Fill="#f0f0f0" Height="1" Margin="0,30,0,0" HorizontalAlignment="Stretch" />
+            <TextBlock Foreground="#073642" FontSize="16" TextWrapping="Wrap" Margin="0,15,0,0"
+                       Text="{x:Static p:Strings.Help_Intro}" />
+            <Rectangle Fill="#f0f0f0" Height="1" Margin="0,15,0,0" HorizontalAlignment="Stretch" />
+
+            <!-- Basic Usage -->
+            <TextBlock Text="{x:Static p:Strings.Help_BasicUsage}" FontWeight="Bold" FontSize="26" Foreground="#4040c0" Margin="0,40,0,0" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_MonitorHost_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_MonitorHost_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_AddMonitor_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_AddMonitor_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_RemoveMonitor_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_RemoveMonitor_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_Columns_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_Columns_Body}" />
+
+            <!-- Extra Features -->
+            <TextBlock Text="{x:Static p:Strings.Help_ExtraFeatures}" FontWeight="Bold" FontSize="26" Foreground="#4040c0" Margin="0,40,0,0" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_PortMonitor_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_PortMonitor_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_TraceRoute_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_TraceRoute_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_FloodHost_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_FloodHost_Body}" />
+
+            <!-- Options -->
+            <TextBlock Text="{x:Static p:Strings.Help_OptionsSection}" FontWeight="Bold" FontSize="26" Foreground="#4040c0" Margin="0,40,0,0" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_PingInterval_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_PingInterval_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_PingTimeout_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_PingTimeout_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_Email_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_Email_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_AlwaysOnTop_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_AlwaysOnTop_Body}" />
+
+            <TextBlock Text="{x:Static p:Strings.Help_LogOutput_Title}" FontWeight="Bold" FontSize="16" Foreground="#404040" Margin="0,25,0,0" />
+            <TextBlock Foreground="#606060" FontSize="16" TextWrapping="Wrap" Margin="0,2,0,0"
+                       Text="{x:Static p:Strings.Help_LogOutput_Body}" />
+
+            <!-- Command Line Usage -->
+            <TextBlock Text="{x:Static p:Strings.Help_CommandLine}" FontWeight="Bold" FontSize="26" Foreground="#4040c0" Margin="0,40,0,0" />
+            <TextBlock Text="{x:Static p:Strings.Help_CmdSyntax}" FontWeight="Bold" FontSize="16"
+                       Foreground="#404040" Margin="0,25,0,0" FontFamily="monospace" />
+
+            <Grid ColumnDefinitions="110,*" Margin="0,15,0,0">
+                <TextBlock Grid.Column="0" Text="-i interval" FontFamily="monospace" FontSize="14" Foreground="#606060" />
+                <TextBlock Grid.Column="1" Text="{x:Static p:Strings.Help_CmdInterval}" FontSize="16" Foreground="#606060" TextWrapping="Wrap" />
+            </Grid>
+            <Grid ColumnDefinitions="110,*" Margin="0,8,0,0">
+                <TextBlock Grid.Column="0" Text="-w timeout" FontFamily="monospace" FontSize="14" Foreground="#606060" />
+                <TextBlock Grid.Column="1" Text="{x:Static p:Strings.Help_CmdTimeout}" FontSize="16" Foreground="#606060" TextWrapping="Wrap" />
+            </Grid>
+            <Grid ColumnDefinitions="110,*" Margin="0,8,0,30">
+                <TextBlock Grid.Column="0" Text="target_host" FontFamily="monospace" FontSize="14" Foreground="#606060" />
+                <TextBlock Grid.Column="1" Text="{x:Static p:Strings.Help_CmdTarget}" FontSize="16" Foreground="#606060" TextWrapping="Wrap" />
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>

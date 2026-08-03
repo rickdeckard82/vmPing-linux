@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.DialogWindow"
+        Title="vmPing"
+        Width="380"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner">
+
+    <!--
+        Versão simplificada do UI/DialogWindow.xaml original (WPF): mantém o
+        contrato público (ErrorWindow/WarningWindow) mas sem o ícone vetorial por
+        enquanto (Icons.xaml ainda não foi portado — Fase 4/5) e sem o efeito
+        sonoro do SystemSounds.Exclamation (Windows-only; ver PlaySound em
+        Classes/Probe-Util.cs para o padrão adotado no port caso isso vire
+        necessário aqui também).
+    -->
+    <StackPanel Margin="20" Spacing="16">
+        <TextBlock Name="MessageHeader" FontWeight="Bold" FontSize="14" />
+        <TextBlock Name="MessageBody" TextWrapping="Wrap" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Name="Cancel" Content="{x:Static p:Strings.DialogButton_Cancel}" Click="Cancel_Click" IsVisible="False" VerticalAlignment="Center" />
+            <Button Name="OK" Content="{x:Static p:Strings.DialogButton_OK}" Click="OK_Click" IsDefault="True" VerticalAlignment="Center" />
+        </StackPanel>
+    </StackPanel>
+
+</Window>

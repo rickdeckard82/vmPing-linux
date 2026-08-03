@@ -1,0 +1,227 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:classes="clr-namespace:vmPing.Classes"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.MainWindow"
+        Icon="/Assets/vmPing-48.png"
+        Title="vmPing"
+        Width="800" Height="400"
+        MinWidth="350" MinHeight="200"
+        Loaded="Window_Loaded"
+        Opened="Window_Opened"
+        Closing="Window_Closing">
+
+    <!--
+        FASE 3 — port funcional-primeiro do UI/MainWindow.xaml original (637
+        linhas). O que foi DELIBERADAMENTE simplificado / adiado para a Fase 5
+        (quando ResourceDictionaries/*.xaml forem portados):
+          - ControlTemplates customizados dos botões (hover/pressed com bordas
+            arredondadas) -> botões padrão do Avalonia por enquanto.
+          - Ícones vetoriais (StaticResource icon.*) -> texto/glifos Unicode.
+          - Fonte Marlett para o glifo de status -> Unicode (ver ValueConverters.cs).
+          - Animação de "flash" (DoubleAnimation) ao atualizar estatísticas -> removida.
+          - Placeholder text customizado da hostname textbox -> TextBox.Watermark nativo.
+          - Drag-and-drop para reordenar probes -> NÃO portado nesta fase (API de
+            DragDrop do Avalonia é assíncrona, port não trivial; ver MIGRATION_PLAN.md).
+        Tudo que é FUNCIONAL (menus, comandos, grid dinâmico de hosts, ping,
+        favoritos, aliases, bandeja) foi portado.
+    -->
+
+    <Window.Resources>
+        <!-- i18n: TrueValue/FalseValue vêm do resx (Button_Stop/Button_Ping) -->
+        <classes:BoolToStringConverter x:Key="BoolToStringConverter"
+                                       TrueValue="{x:Static p:Strings.Button_Stop}"
+                                       FalseValue="{x:Static p:Strings.Button_Ping}" />
+        <classes:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <classes:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <classes:ProbeStatusToBackgroundBrushConverter x:Key="ProbeStatusToBackgroundBrushConverter" />
+        <classes:ProbeStatusToForegroundBrushConverter x:Key="ProbeStatusToForegroundBrushConverter" />
+        <classes:ProbeStatusToStatisticsBrushConverter x:Key="ProbeStatusToStatisticsBrushConverter" />
+        <classes:ProbeStatusToAliasBrushConverter x:Key="ProbeStatusToAliasBrushConverter" />
+        <classes:ProbeStatusToGlyphConverter x:Key="ProbeStatusToGlyphConverter" />
+        <classes:ProbeTypeToFontSizeConverter x:Key="ProbeTypeToFontSizeConverter" />
+        <classes:StringLengthToBoolConverter x:Key="StringLengthToBoolConverter" />
+    </Window.Resources>
+
+    <DockPanel Background="#aaaaaa">
+
+        <!-- Menu bar -->
+        <Menu DockPanel.Dock="Top">
+
+            <!-- Menu: Add Probe. i18n (FASE 5): headers/tooltips/watermarks
+                 saem do resx via x:Static — resolvido na construção da janela,
+                 com a cultura já aplicada pelo Localization no startup. -->
+            <MenuItem Name="AddProbeMenu" Header="{x:Static p:Strings.Toolbar_Add}" Click="AddProbeExecute" InputGesture="Ctrl+A" />
+
+            <!-- Menu: Columns -->
+            <MenuItem Header="{x:Static p:Strings.Toolbar_Columns}">
+                <StackPanel Orientation="Horizontal" Margin="8">
+                    <TextBlock Text="{Binding ElementName=ColumnCount, Path=Value}" MinWidth="30"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Slider Name="ColumnCount"
+                            ValueChanged="ColumnCount_ValueChanged"
+                            Minimum="1" Maximum="10" Value="3"
+                            TickFrequency="1" IsSnapToTickEnabled="True"
+                            Width="200" />
+                </StackPanel>
+            </MenuItem>
+
+            <!-- Menu: Start/Stop All -->
+            <MenuItem Name="StartStopMenu" Click="StartStopExecute" InputGesture="F5">
+                <MenuItem.Header>
+                    <TextBlock Name="StartStopMenuHeader" Text="{x:Static p:Strings.Toolbar_StartAll}" />
+                </MenuItem.Header>
+            </MenuItem>
+
+            <!-- Menu: Main dropdown -->
+            <MenuItem Header="⋯">
+                <MenuItem Name="OptionsMenu" Header="{x:Static p:Strings.Menu_Options}" Click="OptionsExecute" InputGesture="F10" />
+                <Separator />
+                <MenuItem Name="StatusHistoryMenu" Header="{x:Static p:Strings.Menu_StatusHistory}" Click="StatusHistoryExecute" InputGesture="F12" />
+                <MenuItem Name="MultiInputMenu" Header="{x:Static p:Strings.Menu_InputAddresses}" Click="MultiInputWindowExecute" InputGesture="F2" />
+                <MenuItem Header="{x:Static p:Strings.Menu_PopupAlerts}">
+                    <MenuItem Name="PopupNever" Header="{x:Static p:Strings.Notification_Never}" ToggleType="CheckBox" Click="PopupNever_Click" />
+                    <MenuItem Name="PopupWhenMinimized" Header="{x:Static p:Strings.Notification_WhenMinimized}" ToggleType="CheckBox" Click="PopupWhenMinimized_Click" />
+                    <MenuItem Name="PopupAlways" Header="{x:Static p:Strings.Notification_Always}" ToggleType="CheckBox" Click="PopupAlways_Click" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="{x:Static p:Strings.Menu_FavoriteSets}" Name="FavoritesMenu">
+                    <MenuItem Header="{x:Static p:Strings.Menu_SaveToFavorites}" Click="CreateFavorite_Click" />
+                    <MenuItem Header="{x:Static p:Strings.Menu_ManageFavorites}" Click="ManageFavorites_Click" />
+                    <Separator />
+                </MenuItem>
+                <MenuItem Header="{x:Static p:Strings.Menu_Aliases}" Name="AliasesMenu">
+                    <MenuItem Header="{x:Static p:Strings.Menu_ManageAliases}" Click="ManageAliases_Click" />
+                    <Separator />
+                </MenuItem>
+                <Separator />
+                <MenuItem Name="TracerouteMenu" Header="{x:Static p:Strings.Menu_Traceroute}" Click="TracerouteExecute" InputGesture="Ctrl+T" />
+                <!-- FASE 5 — itens novos (não existem no vmPing original),
+                     pedidos pelo usuário: consultas DNS via nslookup/dig,
+                     abrindo UI/DnsLookupWindow parametrizada pela ferramenta. -->
+                <MenuItem Name="NslookupMenu" Header="{x:Static p:Strings.Menu_Nslookup}" Click="NslookupExecute" />
+                <MenuItem Name="DigMenu" Header="{x:Static p:Strings.Menu_Dig}" Click="DigExecute" />
+                <MenuItem Name="FloodHostMenu" Header="{x:Static p:Strings.Menu_FloodHost}" Click="FloodHostExecute" InputGesture="Ctrl+F" />
+                <MenuItem Name="NewInstanceMenu" Header="{x:Static p:Strings.Menu_NewInstance}" Click="NewInstanceExecute" InputGesture="Ctrl+N" />
+                <Separator />
+                <MenuItem Name="HelpMenu" Header="{x:Static p:Strings.Menu_Help}" Click="HelpExecute" InputGesture="F1" />
+            </MenuItem>
+        </Menu>
+
+        <!-- Grid de probes -->
+        <ItemsControl Name="ProbeItemsControl">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding ElementName=ColumnCount, Path=Tag}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="classes:Probe">
+                    <!-- FASE 5 (rodada 2): DragDrop.AllowDrop no Border raiz do item —
+                         qualquer ponto do probe aceita soltar (igual ao original, que
+                         tinha AllowDrop no DockPanel e no Label do título). Os handlers
+                         de DragOver/Drop são registrados uma vez no ItemsControl via
+                         AddHandler no code-behind (eventos roteados sobem até lá), já
+                         que Avalonia não liga evento attached por atributo no XAML. -->
+                    <Border BorderBrush="#111111" BorderThickness="0,0,2,2"
+                            DragDrop.AllowDrop="True"
+                            Background="{Binding Status, Converter={StaticResource ProbeStatusToBackgroundBrushConverter}}">
+                        <Grid RowDefinitions="*,Auto">
+
+                            <!-- Título / botões / histórico -->
+                            <DockPanel Grid.Row="0">
+
+                                <!-- Barra de título. O TextBlock do alias é a alça de
+                                     arrasto pra reordenar (como o Label do original);
+                                     Background=Transparent é obrigatório pro hit-test
+                                     cobrir a área toda, não só os glifos do texto. -->
+                                <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto,Auto,Auto">
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Alias}"
+                                               FontWeight="SemiBold" FontSize="14"
+                                               Padding="5,2"
+                                               Background="Transparent"
+                                               PointerMoved="ProbeTitle_PointerMoved"
+                                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToAliasBrushConverter}}" />
+
+                                    <!-- FASE 5: glifos Unicode (✎ ⛶ ✕) trocados por ícones
+                                         vetoriais (UI/Icons.axaml), como no original. O Fill
+                                         acompanha a cor do alias (mesmo conversor), então os
+                                         ícones ficam legíveis sobre qualquer cor de status. -->
+                                    <Button Grid.Column="1" Classes="probe-action"
+                                            IsEnabled="{Binding Hostname, Converter={StaticResource StringLengthToBoolConverter}}"
+                                            Click="EditAlias_Click" ToolTip.Tip="{x:Static p:Strings.Tooltip_EditAlias}">
+                                        <Path Data="{StaticResource icon.pencil}"
+                                              Fill="{Binding Status, Converter={StaticResource ProbeStatusToAliasBrushConverter}}" />
+                                    </Button>
+                                    <Button Grid.Column="2" Classes="probe-action"
+                                            Click="IsolatedView_Click" ToolTip.Tip="{x:Static p:Strings.Tooltip_IsolatedView}">
+                                        <Path Data="{StaticResource icon.window-restore}"
+                                              Fill="{Binding Status, Converter={StaticResource ProbeStatusToAliasBrushConverter}}" />
+                                    </Button>
+                                    <Button Grid.Column="3" Classes="probe-action"
+                                            Click="RemoveProbe_Click" ToolTip.Tip="{x:Static p:Strings.Tooltip_Close}">
+                                        <Path Data="{StaticResource icon.window-close}"
+                                              Fill="{Binding Status, Converter={StaticResource ProbeStatusToAliasBrushConverter}}" />
+                                    </Button>
+                                </Grid>
+
+                                <!-- Estatísticas.
+                                     [Provável] ObjectConverters.Equal é um conversor estático embutido
+                                     do Avalonia (Avalonia.Data.Converters) para comparar um valor
+                                     bindado contra ConverterParameter — não verificado por build
+                                     neste ambiente. Se não resolver, trocar por um conversor próprio
+                                     (bool ProbeTypeIsPing(ProbeType) => type == ProbeType.Ping). -->
+                                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+                                            IsVisible="{Binding Type, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static classes:ProbeType.Ping}}">
+                                    <TextBlock Text="Sent: " Opacity="0.8" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Statistics.Sent}"
+                                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToStatisticsBrushConverter}}" FontWeight="Bold" VerticalAlignment="Center" />
+                                    <TextBlock Text="  Received: " Opacity="0.8" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Statistics.Received}"
+                                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToStatisticsBrushConverter}}" FontWeight="Bold" VerticalAlignment="Center" />
+                                    <TextBlock Text="  Lost: " Opacity="0.8" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Statistics.Lost}"
+                                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToStatisticsBrushConverter}}" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <!-- Histórico de ping -->
+                                <ListBox Name="History"
+                                         Background="Transparent"
+                                         Foreground="{Binding Status, Converter={StaticResource ProbeStatusToForegroundBrushConverter}}"
+                                         ItemsSource="{Binding History}"
+                                         FontFamily="monospace"
+                                         FontSize="{Binding Type, Converter={StaticResource ProbeTypeToFontSizeConverter}}"
+                                         Loaded="History_Loaded"
+                                         Unloaded="History_Unloaded" />
+                            </DockPanel>
+
+                            <!-- Hostname + botão de ping -->
+                            <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto" Background="#e8ffffff">
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Status, Converter={StaticResource ProbeStatusToGlyphConverter}}"
+                                           VerticalAlignment="Center" Padding="4,0" />
+
+                                <TextBox Name="Hostname"
+                                         Grid.Column="1"
+                                         Watermark="{x:Static p:Strings.MainWindow_Watermark}"
+                                         FontWeight="SemiBold"
+                                         Background="Transparent"
+                                         Text="{Binding Hostname}"
+                                         IsEnabled="{Binding IsActive, Converter={StaticResource InverseBooleanConverter}}"
+                                         Loaded="Hostname_Loaded"
+                                         KeyDown="Hostname_KeyDown" />
+
+                                <Button Grid.Column="2" Margin="2"
+                                        Content="{Binding IsActive, Converter={StaticResource BoolToStringConverter}}"
+                                        Click="ProbeStartStop_Click" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
+
+</Window>

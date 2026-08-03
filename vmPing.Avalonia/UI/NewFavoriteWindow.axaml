@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.NewFavoriteWindow"
+        Title="{x:Static p:Strings.NewFavorite_WindowTitle}"
+        Width="420"
+        CanResize="False"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/NewFavoriteWindow.xaml original.
+        NÃO portado (documentado, não esquecido): drag-and-drop de arquivo de
+        hosts (MyHosts_Drop no original) — API de DragDrop do Avalonia é
+        assíncrona/diferente da do WPF, mesmo caso já registrado para
+        MainWindow na Fase 3; ver MIGRATION_PLAN.md. O resto (validação de
+        coluna/título/hosts, aviso de sobrescrita, editar favorito existente)
+        está portado.
+    -->
+    <StackPanel Margin="16" Spacing="10">
+        <TextBlock Name="Header" Text="{x:Static p:Strings.NewFavorite_Header2}" FontWeight="SemiBold" FontSize="14" />
+
+        <Grid ColumnDefinitions="90,*">
+            <TextBlock Grid.Column="0" Text="{x:Static p:Strings.NewFavorite_TitleLabel}" VerticalAlignment="Center" Opacity="0.7" />
+            <TextBox Name="MyTitle" Grid.Column="1" MaxLength="64" />
+        </Grid>
+
+        <Grid ColumnDefinitions="90,*">
+            <TextBlock Grid.Column="0" Text="{x:Static p:Strings.Toolbar_Columns}" VerticalAlignment="Center" Opacity="0.7" />
+            <TextBox Name="MyColumnCount" Grid.Column="1" />
+        </Grid>
+
+        <TextBlock Text="{x:Static p:Strings.NewFavorite_HostsLabel}" Opacity="0.7" />
+        <TextBox Name="MyHosts" AcceptsReturn="True" Height="140" TextWrapping="Wrap" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="{x:Static p:Strings.DialogButton_Save}" MinWidth="85" IsDefault="True" Click="Save_Click" VerticalAlignment="Center" />
+            <Button Content="{x:Static p:Strings.DialogButton_Cancel}" MinWidth="85" Click="Cancel_Click" VerticalAlignment="Center" />
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        xmlns:classes="clr-namespace:vmPing.Classes"
+        x:Class="vmPing.UI.IsolatedPingWindow"
+        x:DataType="classes:Probe"
+        Title="{x:Static p:Strings.Button_Ping}"
+        Width="450" Height="500"
+        MinWidth="300" MinHeight="200"
+        Closed="Window_Closed">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/IsolatedPingWindow.xaml
+        original. DataContext = Probe (mesmo que a célula original no grid da
+        MainWindow), aberta pelo botão "⛶" de cada probe. NÃO portado
+        (documentado): a animação de "flash" de opacidade ao atualizar
+        estatísticas (DoubleAnimation/Storyboard, Fase 5) e o auto-scroll com
+        preservação de seleção de texto do TextBox original (simplificado:
+        sem auto-scroll aqui por enquanto — o usuário rola manualmente).
+        Estatísticas mostradas sempre que o tipo é Ping (original também
+        escondia se Sent==0; simplificação aceita).
+    -->
+    <Window.Resources>
+        <classes:ProbeStatusToBackgroundBrushConverter x:Key="ProbeStatusToBackgroundBrushConverter" />
+        <classes:ProbeStatusToForegroundBrushConverter x:Key="ProbeStatusToForegroundBrushConverter" />
+        <classes:ProbeStatusToStatisticsBrushConverter x:Key="ProbeStatusToStatisticsBrushConverter" />
+    </Window.Resources>
+
+    <Border BorderBrush="#111" BorderThickness="0,1,0,0"
+            Background="{Binding Status, Converter={StaticResource ProbeStatusToBackgroundBrushConverter}}">
+        <Grid RowDefinitions="Auto,*">
+
+            <TextBlock Grid.Row="0"
+                       FontWeight="SemiBold"
+                       Foreground="#eee"
+                       FontSize="20"
+                       Height="30"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Background="#80000000"
+                       Text="{Binding Hostname}" />
+
+            <DockPanel Grid.Row="1">
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="6,0,0,3"
+                            IsVisible="{Binding Type, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static classes:ProbeType.Ping}}">
+                    <TextBlock Text="Sent: " Opacity="0.8" FontWeight="Bold" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Statistics.Sent}" FontWeight="Bold"
+                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToStatisticsBrushConverter}}" VerticalAlignment="Center" />
+                    <TextBlock Text="  Received: " Opacity="0.8" FontWeight="Bold" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Statistics.Received}" FontWeight="Bold"
+                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToStatisticsBrushConverter}}" VerticalAlignment="Center" />
+                    <TextBlock Text="  Lost: " Opacity="0.8" FontWeight="Bold" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Statistics.Lost}" FontWeight="Bold"
+                               Foreground="{Binding Status, Converter={StaticResource ProbeStatusToStatisticsBrushConverter}}" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <TextBox Name="History"
+                         IsReadOnly="True"
+                         Background="Transparent"
+                         Foreground="{Binding Status, Converter={StaticResource ProbeStatusToForegroundBrushConverter}}"
+                         BorderThickness="0"
+                         FontFamily="monospace"
+                         Text="{Binding HistoryAsString, Mode=OneWay}"
+                         TextWrapping="NoWrap"
+                         AcceptsReturn="True" />
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>

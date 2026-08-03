@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.ManageAliasesWindow"
+        Title="{x:Static p:Strings.Menu_ManageAliases}"
+        Width="460" Height="475"
+        MinWidth="360" MinHeight="250"
+        WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown">
+
+    <!-- FASE 4 — port funcional-primeiro de UI/ManageAliasesWindow.xaml
+         original (122 linhas). DataGrid de duas colunas (WPF) -> ListBox com
+         DataTemplate (Avalonia.Controls.DataGrid não usado, mesma decisão de
+         ManageFavoritesWindow). -->
+    <Grid Margin="9" RowDefinitions="Auto,*,Auto">
+        <TextBlock Grid.Row="0" Text="{x:Static p:Strings.Menu_ManageAliases}" FontWeight="SemiBold" FontSize="14" Margin="0,0,0,8" />
+
+        <ListBox Name="Aliases" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <!-- x:CompileBindings="False": item é KeyValuePair<string,string> (Alias.GetAll()),
+                     escrever o x:DataType genérico correto em XAML não vale o risco de adivinhar
+                     sintaxe — ver disciplina de não-adivinhação no MIGRATION_PLAN.md. -->
+                <DataTemplate x:CompileBindings="False">
+                    <Grid ColumnDefinitions="*,0.8*">
+                        <TextBlock Grid.Column="0" Text="{Binding Value}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="1" Text="{Binding Key}" TextTrimming="CharacterEllipsis" Foreground="#0067b8" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,9,0,0">
+            <Button Content="{x:Static p:Strings.DialogButton_New}" MinWidth="85" Click="New_Click" VerticalAlignment="Center" />
+            <Button Content="{x:Static p:Strings.DialogButton_Edit}" MinWidth="85" Click="Edit_Click" IsEnabled="{Binding #Aliases.SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}" VerticalAlignment="Center" />
+            <Button Content="{x:Static p:Strings.DialogButton_Remove}" MinWidth="85" Click="Remove_Click" IsEnabled="{Binding #Aliases.SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}" VerticalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,17 @@
+Package: vmping
+Version: @VERSION@
+Section: net
+Priority: optional
+Architecture: amd64
+Maintainer: Everton Herculano <everton@ehs.eti.br>
+Homepage: https://github.com/rickdeckard82/vmPing-linux
+Depends: libc6, libssl3, libcap2-bin, traceroute, bind9-dnsutils | dnsutils, libicu76 | libicu74 | libicu72 | libicu71 | libicu70 | libicu67
+Recommends: pulseaudio-utils | ffmpeg | alsa-utils
+Description: Ferramenta gráfica de monitoramento de ping multi-host
+ Port do vmPing (originalmente WPF/Windows) para Linux via Avalonia UI.
+ Monitora múltiplos hosts simultaneamente com histórico de status,
+ alertas sonoros e notificações de mudança de estado. Inclui traceroute,
+ consultas DNS (nslookup/dig) e interface em português e inglês.
+ .
+ Baseado no vmPing de Ryan Smith (https://github.com/R-Smith/vmPing),
+ licença MIT.

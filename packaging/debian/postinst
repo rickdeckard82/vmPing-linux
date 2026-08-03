@@ -1,0 +1,29 @@
+#!/bin/sh
+# postinst: aplica CAP_NET_RAW ao binário para permitir ping ICMP sem root/sudo.
+# Sem isso, System.Net.NetworkInformation.Ping falha com PermissionDenied para
+# usuários não-root em kernels Linux padrão.
+set -e
+
+BIN=/usr/lib/vmping/vmping
+
+if [ -x "$BIN" ]; then
+    if command -v setcap >/dev/null 2>&1; then
+        setcap cap_net_raw+ep "$BIN" || \
+            echo "vmping: falha ao aplicar setcap em $BIN; ping ICMP pode exigir sudo." >&2
+    else
+        echo "vmping: comando 'setcap' não encontrado (pacote libcap2-bin ausente)." >&2
+        echo "vmping: ping ICMP vai exigir execução como root até isso ser corrigido." >&2
+    fi
+fi
+
+# [Certo] NÃO chamar gtk-update-icon-cache aqui. A versão anterior deste
+# script fazia isso e o resultado, na primeira instalação real, foi:
+#   gtk-update-icon-cache: The generated cache was invalid.
+#   WARNING: icon cache generation failed
+# O pacote hicolor-icon-theme já registra um trigger do dpkg que atualiza o
+# cache de ícones no momento correto (visível como "Processando gatilhos para
+# hicolor-icon-theme" na instalação). Chamar manualmente duplica o trabalho
+# fora de ordem e corrompe o cache. Mesma regra vale pro desktop-file-utils
+# (update-desktop-database), que também tem trigger próprio.
+
+exit 0

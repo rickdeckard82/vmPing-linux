@@ -1,0 +1,32 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="vmPing.App"
+             RequestedThemeVariant="Light">
+
+    <!-- FASE 5:
+         - RequestedThemeVariant "Default" -> "Light": o vmPing original é um
+           app de tema claro fixo (janelas #e1e1e1, texto escuro). Com
+           "Default", o Fluent seguia o tema do sistema — num desktop escuro,
+           menus/dialogs ficavam escuros por cima das janelas claras do port,
+           um híbrido que não existe no original.
+         - Icons.axaml: geometrias vetoriais portadas de
+           ResourceDictionaries/Icons.xaml (ver comentários lá).
+         - ControlStyles.axaml: paleta/cantos quadrados do visual original.
+         [Certo] URIs avares:// resolvem pelo nome do ASSEMBLY (vmping,
+         <AssemblyName> no .csproj), não pelo nome do projeto — mesma regra do
+         fix do ícone da bandeja registrado no MIGRATION_PLAN.md. -->
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://vmping/UI/Icons.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://vmping/UI/ControlStyles.axaml" />
+    </Application.Styles>
+
+</Application>

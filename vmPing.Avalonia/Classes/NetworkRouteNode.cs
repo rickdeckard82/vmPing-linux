@@ -1,0 +1,69 @@
+﻿using System;
+using System.ComponentModel;
+using System.Net.NetworkInformation;
+
+namespace vmPing.Classes
+{
+    // [Certo] FASE 4 — mesma razão de Classes/NetworkRoute.cs: público pra
+    // não depender de x:DataType resolver contra tipo internal em bindings
+    // compilados (UI/TraceRouteWindow.axaml usa isto no DataTemplate do
+    // ListBox de hops).
+    public class NetworkRouteNode : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+
+        private string hostAddress;
+        public string HostAddress
+        {
+            get { return hostAddress; }
+            set
+            {
+                if (value != hostAddress)
+                {
+                    hostAddress = value;
+                    NotifyPropertyChanged("HostAddress");
+                }
+            }
+        }
+
+
+        private string hostName;
+        public string HostName
+        {
+            get { return hostName; }
+            set
+            {
+                if (value != hostName)
+                {
+                    hostName = value;
+                    NotifyPropertyChanged("HostName");
+                }
+            }
+        }
+
+
+        private long roundTripTime;
+        public long RoundTripTime
+        {
+            get { return roundTripTime; }
+            set
+            {
+                if (value != roundTripTime)
+                {
+                    roundTripTime = value;
+                    NotifyPropertyChanged("RoundTripTime");
+                }
+            }
+        }
+
+        public IPStatus ReplyStatus { get; set; }
+        public int HopId { get; set; }
+
+
+        private void NotifyPropertyChanged(String info)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+    }
+}

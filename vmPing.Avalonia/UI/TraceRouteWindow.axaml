@@ -1,0 +1,86 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        xmlns:classes="clr-namespace:vmPing.Classes"
+        x:Class="vmPing.UI.TraceRouteWindow"
+        x:DataType="classes:NetworkRoute"
+        Title="{x:Static p:Strings.Menu_Traceroute}"
+        Width="520" Height="460"
+        MinWidth="350" MinHeight="300"
+        Background="#e1e1e1">
+
+    <!--
+        FASE 4 — port funcional-primeiro de UI/TraceRouteWindow.xaml original
+        (272+180 linhas).
+
+        REESCRITO depois de bug real reportado pelo usuário: hop 1 aparecia
+        "Timed out" (esperado) e todos os hops seguintes travavam do mesmo
+        jeito, mesmo com `traceroute` do terminal Linux funcionando normal
+        contra o mesmo host. Causa raiz confirmada no código-fonte real do
+        dotnet/runtime (Ping.RawSocket.cs, GetRawSocket): no Linux,
+        `NeedsConnect` é true, e o socket ICMP raw usado por
+        System.Net.NetworkInformation.Ping chama socket.Connect(destino)
+        "to scope responses only to the target address" — isso faz o kernel
+        descartar qualquer resposta ICMP Time Exceeded vinda dos roteadores
+        intermediários (endereço de origem diferente do destino conectado).
+        Ou seja: Ping+PingOptions.Ttl simplesmente NÃO FUNCIONA pra
+        traceroute no Linux — não é bug do port, é limitação real da API do
+        .NET nesse cenário específico (TTL variável + ler resposta de
+        terceiros). Trocado por chamar o utilitário `traceroute` do sistema
+        operacional diretamente (mesmo padrão já usado em
+        Classes/Probe-Util.cs pro áudio) e parsear a saída linha a linha.
+
+        Efeito colateral bom: a saída passa a bater exatamente com o
+        `traceroute` real do terminal, incluindo resolução reversa de DNS —
+        que é literalmente o que foi pedido. Coluna de RTT removida
+        (info a menos, por pedido explícito).
+
+        Outras simplificações já registradas antes, ainda válidas:
+          - ControlTemplate customizado do TextBox -> TextBox.Watermark nativo.
+          - DataGrid -> ListBox com DataTemplate.
+          - Ícone animado piscando / ícone do botão Trace-Stop -> texto
+            simples, cosmético, Fase 5.
+          - IsCancel="{Binding IsActive}" -> não portado.
+    -->
+
+    <Window.Resources>
+        <classes:BoolToStringConverter x:Key="BoolToStringConverter" TrueValue="{x:Static p:Strings.Button_Stop}" FalseValue="{x:Static p:Strings.TraceRoute_Start}" />
+        <classes:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <classes:HopAddressToBrushConverter x:Key="HopAddressToBrushConverter" />
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True" Margin="15">
+        <TextBlock DockPanel.Dock="Top" FontSize="18" FontWeight="SemiBold" Foreground="#303030"
+                   Margin="0,5,0,10" Text="{x:Static p:Strings.TraceRoute_Header}" />
+
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto">
+            <TextBox Name="Hostname" Grid.Column="0"
+                     FontSize="20" Padding="6,4" FontFamily="monospace"
+                     BorderThickness="1" BorderBrush="#303030"
+                     VerticalContentAlignment="Center"
+                     Watermark="{x:Static p:Strings.TraceRoute_Watermark}"
+                     IsEnabled="{Binding IsActive, Converter={StaticResource InverseBooleanConverter}}" />
+
+            <Button Name="Trace" Grid.Column="1" Click="Trace_Click" IsDefault="True"
+                    FontSize="14" Padding="0,6" Margin="10,0,0,0" MinWidth="100"
+                    Content="{Binding IsActive, Converter={StaticResource BoolToStringConverter}}" />
+        </Grid>
+
+        <Border DockPanel.Dock="Bottom" Background="#141414" BorderBrush="Black" BorderThickness="1" Margin="0,10,0,0">
+            <TextBlock Name="TraceStatus" Text="" IsVisible="False" Margin="9,3"
+                       Foreground="#ecce51" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" />
+        </Border>
+
+        <ListBox Name="TraceData" Margin="0,20,0,0" Background="#202020" Foreground="#fdf6e3" FontFamily="monospace" FontSize="17">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="classes:NetworkRouteNode">
+                    <Grid ColumnDefinitions="50,*">
+                        <TextBlock Grid.Column="0" Text="{Binding HopId}" Foreground="#999" HorizontalAlignment="Right" Padding="5,3,15,3" />
+                        <TextBlock Grid.Column="1" Text="{Binding HostAddress}" Padding="5,3"
+                                   Foreground="{Binding HostAddress, Converter={StaticResource HopAddressToBrushConverter}}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>

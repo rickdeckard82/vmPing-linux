@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>vmping</AssemblyName>
+    <RootNamespace>vmPing</RootNamespace>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <!-- [Certo] InvariantGlobalization=true (do scaffold da Fase 1) foi REMOVIDO
+         na rodada de i18n: em modo invariante o ResourceManager nunca resolve
+         o satellite pt-BR (CurrentUICulture é sempre a cultura invariante) —
+         o app ficava permanentemente em inglês, ignorando tanto o locale do
+         sistema quanto a escolha manual. Consequência: o runtime passa a
+         exigir ICU (libicu) no sistema — presente em qualquer desktop Linux,
+         mas precisa entrar como dependência do .deb na Fase 6 (conferir o
+         nome exato do pacote na distro alvo, ex. libicu72/libicu76). -->
+    <!-- Ping ICMP raw sockets no Linux exigem CAP_NET_RAW; ver packaging/debian/postinst -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Versões conferidas em nuget.org (api.nuget.org/v3-flatcontainer) em 2026-07-26,
+         após o primeiro `dotnet restore` real do usuário ter falhado com NU1102
+         (MsBox.Avalonia 3.1.6 não existe — eu tinha chutado esse número).
+         Avalonia.Diagnostics ainda não tem release na série 12.x, por isso o core
+         ficou pinado em 11.3.17 (última versão em que Avalonia/Desktop/Themes.Fluent/
+         Fonts.Inter/Diagnostics são todos lockstep) em vez do 12.0.x mais novo. -->
+    <PackageReference Include="Avalonia" Version="11.3.17" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.17" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.17" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.17" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.17" Condition="'$(Configuration)' == 'Debug'" />
+    <!-- MsBox.Avalonia foi removido: o único release no NuGet (3.0.0-rc2) tem API
+         instável (build real deu CS0103 em ButtonEnum). Classes/Util.ShowError
+         agora usa UI/DialogWindow, implementação própria sem dependência externa. -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+</Project>

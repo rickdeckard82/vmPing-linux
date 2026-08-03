@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.EditAliasWindow"
+        Title="{x:Static p:Strings.EditAlias_WindowTitle}"
+        Width="360" Height="200"
+        WindowStartupLocation="CenterOwner">
+
+    <!-- FASE 4 — lógica já era real desde a Fase 3 (Classes/Alias.cs). Só
+         ajustado o texto dos botões para inglês (consistente com o resto do
+         app). Original: UI/EditAliasWindow.xaml. -->
+    <StackPanel Margin="16" Spacing="12">
+        <TextBlock Text="{x:Static p:Strings.EditAlias_Prompt}" Opacity="0.7" />
+        <TextBlock Name="HostnameLabel" FontWeight="Bold" />
+        <TextBox Name="AliasBox" Watermark="{x:Static p:Strings.EditAlias_Watermark}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="{x:Static p:Strings.DialogButton_Save}" MinWidth="85" IsDefault="True" Click="Save_Click" VerticalAlignment="Center" />
+            <Button Content="{x:Static p:Strings.DialogButton_Cancel}" MinWidth="85" Click="Cancel_Click" VerticalAlignment="Center" />
+        </StackPanel>
+    </StackPanel>
+
+</Window>

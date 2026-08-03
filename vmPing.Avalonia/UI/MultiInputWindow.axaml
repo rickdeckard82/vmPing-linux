@@ -1,0 +1,27 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:vmPing.Properties"
+        x:Class="vmPing.UI.MultiInputWindow"
+        Title="{x:Static p:Strings.Menu_InputAddresses}"
+        Width="350" Height="420"
+        MinWidth="280" MinHeight="250"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <!-- FASE 4 — port funcional-primeiro de UI/MultiInputWindow.xaml original.
+         NÃO portado (documentado): drag-and-drop de arquivo de hosts, mesmo
+         caso do NewFavoriteWindow (API assíncrona no Avalonia, ver
+         MIGRATION_PLAN.md). -->
+    <Grid Margin="9" RowDefinitions="Auto,*,Auto">
+        <TextBlock Grid.Row="0" Text="{x:Static p:Strings.MultiInput_Prompt}"
+                   FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,8" />
+
+        <TextBox Name="AddressesBox" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 FontFamily="monospace" VerticalContentAlignment="Top" />
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,9,0,0">
+            <Button Content="{x:Static p:Strings.DialogButton_OK}" MinWidth="85" IsDefault="True" Click="OK_Click" VerticalAlignment="Center" />
+            <Button Content="{x:Static p:Strings.DialogButton_Cancel}" MinWidth="85" Click="Cancel_Click" VerticalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Window>
