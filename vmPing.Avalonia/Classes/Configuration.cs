@@ -80,6 +80,7 @@ namespace vmPing.Classes
                         new XElement("configuration"),
                         new XElement("colors")));
                 xd.Save(FilePath);
+                RestrictPermissions(FilePath);
 
                 return true;
             }
@@ -87,6 +88,34 @@ namespace vmPing.Classes
             {
                 Util.ShowError($"{Strings.Error_CreateConfig} {ex.Message}");
                 return false;
+            }
+        }
+
+        // [Segurança] O arquivo de configuração guarda usuário e senha do SMTP.
+        // Eles são cifrados (Util.EncryptStringAES), mas com chave derivada de
+        // material público + nome da máquina/usuário — é ofuscação, não
+        // proteção: quem lê o arquivo consegue recuperar as credenciais.
+        // Por isso o arquivo nasce legível só pelo dono (0600) em vez de herdar
+        // o umask, que na maioria das distros produz 0644 (qualquer usuário
+        // local lê). Não corrige a fraqueza da cifra — reduz quem alcança o
+        // texto cifrado, que é o que dá pra fazer sem quebrar compatibilidade
+        // com o formato de arquivo do vmPing original.
+        private static void RestrictPermissions(string path)
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                return;   // ACLs do Windows: fora de escopo deste port.
+            }
+
+            try
+            {
+                File.SetUnixFileMode(path, UnixFileMode.UserRead | UnixFileMode.UserWrite);
+            }
+            catch
+            {
+                // Sistema de arquivos sem suporte a modo Unix (ex.: pasta em
+                // partição NTFS/exFAT montada). Não é motivo pra impedir o app
+                // de funcionar; só não há como restringir ali.
             }
         }
 
@@ -127,6 +156,10 @@ namespace vmPing.Classes
                 root.Add(GenerateColorsNode());
 
                 xd.Save(FilePath);
+                // Reforça a permissão a cada gravação: arquivos de config
+                // vindos de versões anteriores (ou copiados de outra máquina)
+                // podem estar 0644 com a senha SMTP dentro.
+                RestrictPermissions(FilePath);
             }
             catch (Exception ex)
             {

@@ -335,17 +335,35 @@ namespace vmPing.Classes
                     : "Nenhum player de áudio compatível com este formato encontrado (paplay/ffplay). " +
                       "'aplay' não decodifica arquivos comprimidos (Ogg/MP3/...). Instale 'pulseaudio-utils' (paplay) ou 'ffmpeg' (ffplay).");
 
-            var psi = new ProcessStartInfo(player.Command, $"{player.Args} \"{path}\"".Trim())
+            // [Segurança] ArgumentList em vez da string Arguments: cada argumento
+            // é passado ao execve() como elemento separado, sem parsing de
+            // quoting. A versão anterior montava `$"{args} \"{path}\""` — um
+            // caminho contendo aspas quebraria o quoting e injetaria argumentos
+            // extras no player (ffplay/paplay aceitam opções que leem e gravam
+            // arquivos). O caminho vem do vmPing.xml, que em "modo portátil"
+            // pode ficar num diretório gravável por terceiros; e o binário
+            // carrega CAP_NET_RAW, então qualquer influência sobre o que ele
+            // executa merece tratamento estrito. Também vale como defesa contra
+            // caminhos com espaço, que a versão anterior só tratava por sorte.
+            var psi = new ProcessStartInfo(player.Command)
             {
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true,
             };
+            foreach (var arg in player.Args)
+            {
+                psi.ArgumentList.Add(arg);
+            }
+            psi.ArgumentList.Add(path);
+
             Process.Start(psi);
         }
 
-        private readonly record struct SoundPlayerCommand(string Command, string Args);
+        // Args é array (não string) porque cada elemento vira um argumento
+        // separado no ArgumentList — ver comentário de segurança em PlaySound.
+        private readonly record struct SoundPlayerCommand(string Command, string[] Args);
 
         // [Certo] Bug real reportado pelo usuário: "os sons fizeram um barulho
         // horrível" ao testar os alertas sonoros padrão (Constants.DefaultAudio*
@@ -367,17 +385,20 @@ namespace vmPing.Classes
         {
             bool isWav = string.Equals(Path.GetExtension(path), ".wav", StringComparison.OrdinalIgnoreCase);
 
+            var ffplayArgs = new[] { "-nodisp", "-autoexit", "-loglevel", "quiet" };
+            var noArgs = Array.Empty<string>();
+
             var candidates = isWav
-                ? new (string cmd, string args)[]
+                ? new (string cmd, string[] args)[]
                 {
-                    ("paplay", ""),
-                    ("aplay", ""),
-                    ("ffplay", "-nodisp -autoexit -loglevel quiet"),
+                    ("paplay", noArgs),
+                    ("aplay", noArgs),
+                    ("ffplay", ffplayArgs),
                 }
-                : new (string cmd, string args)[]
+                : new (string cmd, string[] args)[]
                 {
-                    ("paplay", ""),
-                    ("ffplay", "-nodisp -autoexit -loglevel quiet"),
+                    ("paplay", noArgs),
+                    ("ffplay", ffplayArgs),
                     // aplay deliberadamente de fora aqui: não decodifica formatos
                     // comprimidos (Ogg/MP3/...), só toca ruído no lugar.
                 };
@@ -397,12 +418,18 @@ namespace vmPing.Classes
         {
             try
             {
-                using var which = Process.Start(new ProcessStartInfo("which", command)
+                // `command` só recebe constantes internas, mas usa ArgumentList
+                // por consistência: nenhum ProcessStartInfo neste projeto monta
+                // argumentos por concatenação de string.
+                var psi = new ProcessStartInfo("which")
                 {
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                });
+                };
+                psi.ArgumentList.Add(command);
+
+                using var which = Process.Start(psi);
                 which?.WaitForExit(1000);
                 return which?.ExitCode == 0;
             }
