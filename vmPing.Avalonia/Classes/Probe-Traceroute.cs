@@ -11,7 +11,7 @@ namespace vmPing.Classes
     public partial class Probe
     {
         // [Certo] Reescrito — mesma correção aplicada em UI/TraceRouteWindow.axaml.cs
-        // (ver MIGRATION_PLAN.md pro diagnóstico completo, confirmado contra o
+        // (ver docs/PORTING_NOTES.md pro diagnóstico completo, confirmado contra o
         // código-fonte real do dotnet/runtime). Resumo: System.Net.NetworkInformation.
         // Ping com PingOptions.Ttl não funciona pra traceroute no Linux — o socket
         // ICMP raw é conectado (socket.Connect()) ao destino "to scope responses

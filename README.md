@@ -15,7 +15,7 @@ Bugs e comportamento específicos deste port para Linux **não devem ser reporta
 
 ## O que é isto
 
-Reescrita da camada de UI (WPF → [Avalonia UI](https://avaloniaui.net/)) e adaptação da lógica de rede/persistência para rodar nativamente em Linux, empacotável como `.deb`. Detalhes técnicos completos, mapeamento arquivo a arquivo, riscos conhecidos e fases de trabalho: veja [`MIGRATION_PLAN.md`](./MIGRATION_PLAN.md).
+Reescrita da camada de UI (WPF → [Avalonia UI](https://avaloniaui.net/)) e adaptação da lógica de rede, áudio e persistência para rodar nativamente em Linux, empacotável como `.deb`.
 
 ## Status
 
@@ -27,7 +27,7 @@ Além do original, este port acrescenta:
 - **Interface em português e inglês**, com seleção manual ou automática pelo idioma do sistema (Opções → Exibição).
 - Reordenação de hosts por arrastar e soltar, ícones vetoriais e tema claro consistente.
 
-Ver `MIGRATION_PLAN.md` para o histórico técnico completo, decisões de port e limitações conhecidas.
+As decisões técnicas do port — e os motivos por trás de cada uma — estão em [`docs/PORTING_NOTES.md`](./docs/PORTING_NOTES.md). Vale a leitura antes de mexer no código de rede, áudio ou empacotamento.
 
 ## Instalação
 
@@ -68,7 +68,8 @@ vmPing.Avalonia/     código-fonte (Avalonia UI + .NET 8)
 packaging/           empacotamento .deb
   build-deb.sh       publish + montagem do pacote
   debian/            control, copyright, postinst
-MIGRATION_PLAN.md    histórico técnico completo do port
+docs/
+  PORTING_NOTES.md   decisões técnicas do port (por que o código está assim)
 ```
 
 ## Limitações conhecidas

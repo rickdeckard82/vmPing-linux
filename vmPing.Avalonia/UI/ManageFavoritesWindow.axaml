@@ -13,7 +13,7 @@
         original (144 linhas). Usava DataGrid/ListBox com estilos customizados
         do WPF; aqui usa dois ListBox simples (Avalonia.Controls.DataGrid é um
         pacote separado — não adicionado sem necessidade real, ver disciplina
-        de dependências no MIGRATION_PLAN.md). Hack de esconder
+        de dependências no docs/PORTING_NOTES.md). Hack de esconder
         minimizar/maximizar via user32.dll do original foi removido (Windows-only,
         sem equivalente/necessidade no Linux).
     -->

@@ -25,7 +25,7 @@
             API do file picker do Avalonia (IStorageProvider) sem conseguir
             verificar a forma exata de FilePickerSaveOptions contra o
             código-fonte nesta sessão (rate limit da API do GitHub) — ver
-            MIGRATION_PLAN.md.
+            docs/PORTING_NOTES.md.
           - Posição/tamanho persistidos entre sessões: mantido (é código
             gerenciado puro no original, sem P/Invoke), removida só a parte
             de Win32.

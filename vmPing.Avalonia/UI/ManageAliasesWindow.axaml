@@ -19,7 +19,7 @@
             <ListBox.ItemTemplate>
                 <!-- x:CompileBindings="False": item é KeyValuePair<string,string> (Alias.GetAll()),
                      escrever o x:DataType genérico correto em XAML não vale o risco de adivinhar
-                     sintaxe — ver disciplina de não-adivinhação no MIGRATION_PLAN.md. -->
+                     sintaxe — ver disciplina de não-adivinhação no docs/PORTING_NOTES.md. -->
                 <DataTemplate x:CompileBindings="False">
                     <Grid ColumnDefinitions="*,0.8*">
                         <TextBlock Grid.Column="0" Text="{Binding Value}" TextTrimming="CharacterEllipsis" />

@@ -4,7 +4,7 @@
     <!--
         FASE 5 — estilos globais aproximando o visual do vmPing original.
 
-        Estratégia deliberada (registrada também no MIGRATION_PLAN.md): em vez
+        Estratégia deliberada (registrada também no docs/PORTING_NOTES.md): em vez
         de portar 1:1 os 17 ResourceDictionaries do WPF (~3200 linhas de
         ControlTemplate + Trigger, modelo incompatível com o de estilos do
         Avalonia), sobrescreve-se só o que o tema Fluent faz diferente do visual

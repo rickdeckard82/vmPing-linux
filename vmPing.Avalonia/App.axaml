@@ -14,7 +14,7 @@
          - ControlStyles.axaml: paleta/cantos quadrados do visual original.
          [Certo] URIs avares:// resolvem pelo nome do ASSEMBLY (vmping,
          <AssemblyName> no .csproj), não pelo nome do projeto — mesma regra do
-         fix do ícone da bandeja registrado no MIGRATION_PLAN.md. -->
+         fix do ícone da bandeja registrado no docs/PORTING_NOTES.md. -->
 
     <Application.Resources>
         <ResourceDictionary>

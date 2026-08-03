@@ -11,7 +11,7 @@
     <!--
         FASE 4 — port funcional-primeiro de UI/OptionsWindow.xaml original
         (898+931 linhas, a maior janela do app). Simplificações deliberadas,
-        registradas em detalhe no MIGRATION_PLAN.md:
+        registradas em detalhe no docs/PORTING_NOTES.md:
           - Estilos nomeados (OptionHeaderTextStyle etc, vindos de
             ResourceDictionaries/*.xaml não portado) -> atributos inline em
             cada TextBlock, sem Window.Resources com Style — Avalonia não

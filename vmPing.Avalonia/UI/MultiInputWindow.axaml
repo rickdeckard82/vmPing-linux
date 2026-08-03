@@ -11,7 +11,7 @@
     <!-- FASE 4 — port funcional-primeiro de UI/MultiInputWindow.xaml original.
          NÃO portado (documentado): drag-and-drop de arquivo de hosts, mesmo
          caso do NewFavoriteWindow (API assíncrona no Avalonia, ver
-         MIGRATION_PLAN.md). -->
+         docs/PORTING_NOTES.md). -->
     <Grid Margin="9" RowDefinitions="Auto,*,Auto">
         <TextBlock Grid.Row="0" Text="{x:Static p:Strings.MultiInput_Prompt}"
                    FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,8" />

@@ -11,7 +11,7 @@
 
     <!--
         FASE 4 — port funcional-primeiro de UI/HelpWindow.xaml original (321
-        linhas); ver histórico de simplificações no MIGRATION_PLAN.md
+        linhas); ver histórico de simplificações no docs/PORTING_NOTES.md
         (FlowDocument -> ScrollViewer+StackPanel, TreeView de navegação
         removida, Hyperlink -> PointerPressed + xdg-open).
 

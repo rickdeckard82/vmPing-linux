@@ -14,7 +14,7 @@
         NÃO portado (documentado, não esquecido): drag-and-drop de arquivo de
         hosts (MyHosts_Drop no original) — API de DragDrop do Avalonia é
         assíncrona/diferente da do WPF, mesmo caso já registrado para
-        MainWindow na Fase 3; ver MIGRATION_PLAN.md. O resto (validação de
+        MainWindow na Fase 3; ver docs/PORTING_NOTES.md. O resto (validação de
         coluna/título/hosts, aviso de sobrescrita, editar favorito existente)
         está portado.
     -->

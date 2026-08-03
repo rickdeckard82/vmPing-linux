@@ -22,7 +22,7 @@
           - Animação de "flash" (DoubleAnimation) ao atualizar estatísticas -> removida.
           - Placeholder text customizado da hostname textbox -> TextBox.Watermark nativo.
           - Drag-and-drop para reordenar probes -> NÃO portado nesta fase (API de
-            DragDrop do Avalonia é assíncrona, port não trivial; ver MIGRATION_PLAN.md).
+            DragDrop do Avalonia é assíncrona, port não trivial; ver docs/PORTING_NOTES.md).
         Tudo que é FUNCIONAL (menus, comandos, grid dinâmico de hosts, ping,
         favoritos, aliases, bandeja) foi portado.
     -->
